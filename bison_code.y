@@ -1,4 +1,8 @@
 %{		/*C declarations*/
+#include<stdio.h>
+
+int yylex();
+int yyerror( char *s);
 
 
 %}
@@ -6,7 +10,7 @@
 		/* Yacc definitions*/
 %union{int integer;
 	float floatV;
-	boolean bool;
+	bool boolean;
 	char[2] specialChar;
 	char[11] string;
 	char[] text;
@@ -33,7 +37,7 @@
 %type <integer>		INT
 %type <floatV>		FLOAT
 %type <text>		COMMENT
-%type <bool>		BOOL
+%type <boolean>		BOOL
 
 %%
 		/*grammar*/
@@ -139,34 +143,18 @@ If:
 ;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%
 
 		/*C code*/
-		
+int yyerror(char *s) 
+{
+	printf("Syntax error on line %s \n , s);
+	return 0;
+}
+
+int main ()
+{
+	yyparse();
+	return 0;
+}	
 
