@@ -1,6 +1,9 @@
 %{
+
+#include <string.h>
+#include <stdbool.h>
+#include "../inc/sym_tab.h"
 int line_counter = 0 ;
-int colomn_counter = 0 ;
 extern YYSTYPE yylval;
 
 %}
@@ -32,14 +35,16 @@ comment		\{[^}]*\}
 integre		{yylval.integer=atoi(yytext);return(INT);}
 float_value	{yylval.floatV=atof(yytext);return(FLOAT);}
 boolean_value	{yylval.string=strdup(yytext);return(BOOL);}
-idf		{yylval.string=strdup(yytext);return(IDF);}
+idf		{yylval.string=strdup(yytext); insert(yytext,"idf"); return(IDF);}
 
-[-+*/%<>!,;(){}]	return yytext[0];
+[-+*/%<>,;(){}]		return yytext[0];
 ":="			return(SC_ASSIGN);
 "=="			return(SC_EQUALS);
 "<>"			return(SC_DIFF);
 "<="			return(SC_LOE);
 ">="			return(SC_GOE);
+"++"			return(SC_INCR);
+"--"			return(SC_DECR);
 \n			line_counter ++; 
 comment			
 [ \t]

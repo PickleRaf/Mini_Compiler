@@ -1,5 +1,13 @@
 %{		/*C declarations*/
 
+#include <stdio.h> 
+#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "../inc/sym_tab.h" 
+extern int line_counter;
+void yyerror();
+int yylex();
 
 %}
 
@@ -13,7 +21,9 @@
 }
 
 %start 	Prog
-%token	KW_int KW_float KW_boolean INT FLOAT BOOL IDF SC_ASSIGN SC_EQUALS SC_DIFF SC_LOE SC_GOE KW_For KW_If KW_Else KW_BEGIN KW_END KW_Return KW_Const KW_Void
+%token	INT FLOAT BOOL IDF 
+%token	SC_ASSIGN SC_EQUALS SC_DIFF SC_LOE SC_GOE  SC_INCR SC_DECR
+%token	KW_int KW_float KW_boolean KW_For KW_If KW_Else KW_BEGIN KW_END KW_Return KW_Const KW_Void KW_Pc KW_Fc
 
 %type <specialChar>	SC_ASSIGN
 %type <specialChar>	SC_EQUALS
@@ -39,6 +49,8 @@ Prog:
 	Declarations_Liste Instructions_Liste
 ;
 
+		/*handling declarations*/
+		
 Declarations_Liste : 
 	/*empty*/
 	|VarDeclaration Declarations_Liste
@@ -52,7 +64,16 @@ VarDeclaration:
 ;
 
 FuncDeclaration:
-	Type IDF '('PARA')''{' Assignment Instructions Return'}' /*need to define args*/
+	Type IDF '('Parameter_Liste')''{' Assignment Instructions Return'}' 
+;
+
+ProDeclaration:
+	KW_Void IDF '('Parameter_Liste')''{'Assignment Instructions'}' 
+;
+
+Parameter_Liste:
+	/*empty*/
+	|Type IDF',' Parameter_Liste
 ;
 
 Return : 
@@ -60,10 +81,6 @@ Return :
 	|KW_Return FLOAT ';'
 	|KW_Return BOOL ';'
 	|KW_Return IDF ';'
-;
-
-ProDeclaration:
-	KW_Void IDF '('PARA')''{'Assignment Instructions'}' /*need to define args*/
 ;
 
 Assignment : 	
@@ -86,6 +103,8 @@ Type:
 	|KW_boolean
 ;
 
+		/*handling instructions*/
+		
 Instructions_Liste :
 	KW_BEGIN Instructions KW_END
 ;
@@ -100,6 +119,8 @@ Instructions:
 	|Add Instructions
 	|Sub Instructions
 	|Mod Instructions
+	|Increment';' Instructions
+	|Decrement';' Instructions
 	|FuncCall Instructions
 	|ProCall Instructions
 	
@@ -111,24 +132,6 @@ ArithmeticOp:
 	|Add ArithmeticOp	|Add
 	|Sub ArithmeticOp	|Sub 
 	|Mod ArithmeticOp	|Mod
-;
-
-RelationalOp:
-	EqualityOp 
-	|InequalityOp
-
-;
-
-EqualityOp:
-	SC_EQUALS 
-	|SC_DIFF 
-;
-
-InequalityOp:
-	SC_LOE
-	|SC_GOE
-	|'>'
-	|'<'
 ;
 
 Div:
@@ -151,12 +154,29 @@ Mod:
 	OpSide'%' OpSide
 ;
 
-Condition: 
-	'('Expression')'
+Increment:
+	IDF SC_INCR 
 ;
 
-Expression:
-	OpSide RelationalOp OpSide
+Decrement:
+	IDF SC_DECR
+;
+
+RelationalOp:
+	EqualityOp 
+	|InequalityOp
+;
+
+EqualityOp:
+	SC_EQUALS 
+	|SC_DIFF 
+;
+
+InequalityOp:
+	SC_LOE
+	|SC_GOE
+	|'>'
+	|'<'
 ;
 
 OpSide:
@@ -166,13 +186,22 @@ OpSide:
 	|FuncCall
 ;
 
+Condition: 
+	'('Expression')'
+;
+
+Expression:
+	OpSide RelationalOp OpSide
+;
+
+
 Num:	/*Num must be renamed to const later*/
 	INT
 	|FLOAT
 ;
 
 For:
-	KW_For '(' IDF SC_ASSIGN INT ';' Expression  ';' Increment ')''{' Instructions '}'
+	KW_For '(' IDF SC_ASSIGN INT ';' Expression  ';' Increment')''{' Instructions '}'
 ;
 
 If: 
@@ -181,35 +210,17 @@ If:
 ;
 
 FuncCall:
-	IDF'('ARGS')'';'
+	KW_Fc IDF'('Args_Liste')'';'
 ;
 
 ProCall:
-	IDF'('ARGS')'';'
+	KW_Pc IDF'('Args_Liste')'';'
 ;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Args_Liste:
+	/*empty*/
+	|G_IDF
+;
 
 
 
