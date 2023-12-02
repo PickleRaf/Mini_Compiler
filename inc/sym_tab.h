@@ -9,8 +9,6 @@ typedef struct Symbole_Table{
     char[15] EntityCode;
     char[10] EntityType;
     bool Constant;
-    int FirstLineOfDeclaration;
-    int[30] LinesReferencedIn ;/* l'utilisation des listes chainées est plus optimale */
 }ST;
 
 ST st[100];

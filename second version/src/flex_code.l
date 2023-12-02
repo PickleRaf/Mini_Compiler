@@ -1,9 +1,8 @@
 %{
-
-#include <string.h>
-#include <stdbool.h>
-#include "../inc/sym_tab.h"
+    #include "../inc/bison_code.tab.h"
+    #include "../inc/sym_tab.h"
 int line_counter = 0 ;
+int colomn_counter = 0 ;
 extern YYSTYPE yylval;
 
 %}
@@ -27,18 +26,18 @@ comment		\{[^}]*\}
 "For"		return(KW_For);}
 "If"		return(KW_IF);}
 "else"		return(KW_else);}
-"const"		return(KW_Const);
+"Const"		return(KW_Const);
 "return"	return(KW_Return);
 "void"		return(KW_Void);
-"function"	return(KW_Function);		
+"function"	return(KW_Function);
 
 
 integre		{yylval.integer=atoi(yytext);return(INT);}
 float_value	{yylval.floatV=atof(yytext);return(FLOAT);}
 boolean_value	{yylval.string=strdup(yytext);return(BOOL);}
-idf		{yylval.string=strdup(yytext); insert(yytext,"idf"); return(IDF);}
+idf		{yylval.string=strdup(yytext);return(IDF);}
 
-[-+*/%<>,;(){}]		return yytext[0];
+[-+*/%<>!,;(){}]	return yytext[0];
 ":="			return(SC_ASSIGN);
 "=="			return(SC_EQUALS);
 "<>"			return(SC_DIFF);

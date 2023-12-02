@@ -78,7 +78,8 @@ extern int yydebug;
     KW_Void = 279,                 /* KW_Void  */
     KW_Pc = 280,                   /* KW_Pc  */
     KW_Fc = 281,                   /* KW_Fc  */
-    KW_Function = 282              /* KW_Function  */
+    KW_Function = 282,             /* KW_Function  */
+    KW_While = 283                 /* KW_While  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -87,7 +88,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "bison_code.y"
+#line 17 "bison_code.y"
 int integer;
 	float floatV;
 	boolean bool;
@@ -95,7 +96,7 @@ int integer;
 	char[11] string;
 	
 
-#line 99 "bison_code.tab.h"
+#line 100 "bison_code.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

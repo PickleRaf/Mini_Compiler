@@ -23,7 +23,7 @@ int yylex();
 %start 	Prog
 %token	INT FLOAT BOOL IDF 
 %token	SC_ASSIGN SC_EQUALS SC_DIFF SC_LOE SC_GOE  SC_INCR SC_DECR
-%token	KW_int KW_float KW_boolean KW_For KW_If KW_Else KW_BEGIN KW_END KW_Return KW_Const KW_Void KW_Pc KW_Fc
+%token	KW_int KW_float KW_boolean KW_For KW_If KW_Else KW_BEGIN KW_END KW_Return KW_Const KW_Void KW_Pc KW_Fc KW_Function
 
 %type <specialChar>	SC_ASSIGN
 %type <specialChar>	SC_EQUALS
@@ -53,10 +53,11 @@ Prog:
 		
 Declarations_Liste : 
 	/*empty*/
-	|VarDeclaration Declarations_Liste
+	|ConstDeclaration Declarations_Liste
+	|VarInit Declarations_Liste
 	|FuncDeclaration Declarations_Liste
 	|ProDeclaration Declarations_Liste
-	|Assignment  Declarations_Liste
+	|VarDeclaration  Declarations_Liste
 ;
 
 VarDeclaration:
@@ -64,11 +65,11 @@ VarDeclaration:
 ;
 
 FuncDeclaration:
-	Type IDF '('Parameter_Liste')''{' Assignment Instructions Return'}' 
+	KW_Function Type IDF '('Parameter_Liste')''{' VarInit Instructions Return'}' 
 ;
 
 ProDeclaration:
-	KW_Void IDF '('Parameter_Liste')''{'Assignment Instructions'}' 
+	KW_Void IDF '('Parameter_Liste')''{' VarInit Instructions'}' 
 ;
 
 Parameter_Liste:
@@ -83,17 +84,27 @@ Return :
 	|KW_Return IDF ';'
 ;
 
-Assignment : 	
-	KW_int G_IDF SC_ASSIGN INT';'
-	|G_IDF SC_ASSIGN INT';'
-	|KW_float G_IDF SC_ASSIGN FLOAT ';'
-	|G_IDF SC_ASSIGN FLOAT ';'
-	|KW_boolean G_IDF SC_ASSIGN BOOL ';'
-	|G_IDF SC_ASSIGN BOOL ';'
+ConstDeclaration :
+	KW_Const Type IDF SC_ASSIGN Const ';'
+;
+
+Const:
+	INT
+	|FLOAT
+;
+
+VarInit:
+	Type Assignment
+;
+
+Assignment:
+    G_IDF SC_ASSIGN INT ';'
+    | G_IDF SC_ASSIGN FLOAT ';'
+    | G_IDF SC_ASSIGN BOOL ';'
 ;	 
 
 G_IDF: 
-	IDF ',' G_IDF
+	G_IDF ',' IDF
 	|IDF 
 ;
 
@@ -126,12 +137,26 @@ Instructions:
 	
 ;
 
+
+%left '+' '-';
+%left '*' '/' '%';
+
 ArithmeticOp:
-	Div ArithmeticOp	|Div
-	|Mult ArithmeticOp	|Mult
-	|Add ArithmeticOp	|Add
-	|Sub ArithmeticOp	|Sub 
-	|Mod ArithmeticOp	|Mod
+    UnaryPlus
+    |UnaryMinus
+    | Div
+    | Mult
+    | Add
+    | Sub
+    | Mod
+;
+
+UnaryPlus:
+	'+' OpSide %prec '+'
+;
+
+UnaryMinus:
+	'-' OpSide %prec '-'
 ;
 
 Div:
@@ -181,8 +206,8 @@ InequalityOp:
 
 OpSide:
 	IDF
-	|Num
 	|ArithmeticOp
+	|Const
 	|FuncCall
 ;
 
@@ -195,10 +220,6 @@ Expression:
 ;
 
 
-Num:	/*Num must be renamed to const later*/
-	INT
-	|FLOAT
-;
 
 For:
 	KW_For '(' IDF SC_ASSIGN INT ';' Expression  ';' Increment')''{' Instructions '}'
