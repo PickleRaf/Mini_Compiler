@@ -41,7 +41,7 @@ return -1;
 
 void insert(char entityName[], char entityCode[], char entityType[], bool constant)
 {
-	if ( search(entity)==-1)
+	if ( search(entityName)==-1)
 	{
 
 		STN* newNode = (STN*)malloc(sizeof(STN));
@@ -84,7 +84,7 @@ STNP Q = List_head;
  while(i < stnCounter)
  {
  	printf("\t|%12s |%15s |%10s |%5s | %3s \n",
- 		Q->EntityName, Q->EntityCode, Q->EntityType, Q->Constant?"true"|"false",
+ 		Q->EntityName, Q->EntityCode, Q->EntityType, Q->Constant?"true" : "false",
  		Q->LineNumber );
  	i++;
  	Q = Q->NextNode;

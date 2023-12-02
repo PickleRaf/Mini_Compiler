@@ -16,7 +16,7 @@ int yylex();
 		/* Yacc definitions*/
 %union{int integer;
 	float floatV;
-	bool boolV;
+	char boolV[5];
 	char specialChar[2];
 	char string[11];
 	

@@ -91,7 +91,7 @@ union YYSTYPE
 #line 17 "bison_code.y"
 int integer;
 	float floatV;
-	bool boolV;
+	char boolV[5];
 	char specialChar[2];
 	char string[11];
 	

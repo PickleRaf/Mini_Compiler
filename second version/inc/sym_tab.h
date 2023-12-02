@@ -1,7 +1,6 @@
 #ifndef SYM_TAB_H 
 #define SYM_TAB_H
 
-#include "./bison_code.tab.h"
 #include "../src/sym_tab.c"
 
 #include <stdlib.h>
@@ -9,6 +8,8 @@
 #include <string.h>
 #include <stdbool.h>
 
+
+typedef  STN* STNP;
 
 typedef struct Symbole_Table_Node{
     char EntityName[11];
@@ -19,9 +20,6 @@ typedef struct Symbole_Table_Node{
     STNP NextNode; 
 }STN;
 
-typedef struct STN_Pointer {
-	STN* Node;
-}STNP;
 
 void Sym_Tab_Destroy();
 
