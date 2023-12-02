@@ -1,10 +1,11 @@
 %{		/*C declarations*/
-#include "../inc/bison_code.tab.h"
-#include "../inc/sym_tab.h" 
 #include <stdio.h> 
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "../inc/bison_code.tab.h"
+#include "../inc/sym_tab.h" 
+
 extern int line_counter;
 extern char Current_type[];
 extern char Current_const_valtype[];
@@ -72,78 +73,42 @@ Declarations_Liste:
 ConstDeclaration :
 	KW_Const Type IDF SC_ASSIGN Const ';'{
 		if(search($3) == -1){
-			switch (Current_type){
-				case "int" :
-					if(Current_const_valtype =="int"){
-						insert($3,"idf", Current_type, true);
-					}else{
-						printf("incompatible type!");
-					}	
-				break;
-				
-				case "float" : 
-					if(Current_const_valtype =="float"){
-						insert($3,"idf", Current_type, true);
-					}else{
-						printf("incompatible type!");
-					}
-				break;
-				
-				case"boolean": 
-					if(Current_const_valtype =="boolean"){
-						insert($3,"idf", Current_type, true);
-					}else{
-						printf("incompatible type!");
-					}
-				break;
+			if(strcmp(Current_const_valtype,Current_type)==0){
+				insert($3,"idf", Current_type, true);
+			}
+			else{
+				printf("incompatible type!");
 			}
 		}	
 		else{
 			printf("idf already declared in ");
-		}	
-	}	
+		}		
+	}
 ;
 
 Const:
 	INT{ 
-		Current_const_valtype = "int";
+		strcpy(Current_const_valtype,"int");
 	}
 	|FLOAT{
-		Current_const_valtype = "float";
+		strcpy(Current_const_valtype,"float");
 	}
 	|BOOL{
-		Current_const_valtype = "boolean";
+		strcpy(Current_const_valtype,"boolean");
 	}
 ;
 
 VarInit:
 	Type  G_IDF SC_ASSIGN Const ';' {
-			switch (Current_type){
-				case "int" :
-					if(Current_const_valtype !="int"){
-						printf("incompatible type!");
-					}	
-				break;
-				
-				case "float" : 
-					if(Current_const_valtype =="boolean"){
-						printf("incompatible type!");
-					}
-				break;
-				
-				case"boolean": 
-					if(Current_const_valtype !="boolean"){
-						printf("incompatible type!");
-					}
-				break;
-			}	
-	}
+	
+		if(strcmp(Current_const_valtype,Current_type)!=0){
+				printf("incompatible type!");
+		}
+	}				
 ;
 
 VarDeclaration :
-	Type G_IDF ; 
-		
-	
+	Type G_IDF ';'			
 ; 
 
 G_IDF:
@@ -168,13 +133,13 @@ G_IDF:
 
 Type:
 	KW_int{ 
-		Current_type = "int";
+		strcpy(Current_type,"int");
 	}
 	|KW_float{ 
-		Current_type = "float";
+		strcpy(Current_type,"float");
 	}
 	|KW_boolean{ 
-		Current_type = "boolean";
+		strcpy(Current_type,"boolean");
 	}
 ;
 /*

@@ -33,8 +33,8 @@ comment		\{[^}]*\}
 
 integre		{yylval.integer=atoi(yytext);return(INT);}
 float_value	{yylval.floatV=atof(yytext);return(FLOAT);}
-boolean_value	{yylval.string=strdup(yytext);return(BOOL);}
-idf		{yylval.string=strdup(yytext);return(IDF);}
+boolean_value	{strcpy(yylval.boolV, strdup(yytext));return(BOOL);}
+idf		{strcpy(yylval.string, strdup(yytext));return(IDF);}
 
 [-+*/%<>!,;(){}]	return yytext[0];
 ":="			return(SC_ASSIGN);

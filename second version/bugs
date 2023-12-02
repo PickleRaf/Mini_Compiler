@@ -1,0 +1,12 @@
+raf@raf-VirtualBox:~/Compilation/TP_Project/src$ 
+gcc lex.yy.c bison_code.tab.c main.c sym_tab.c -lfl -ly -o prog
+/usr/bin/ld: cannot find -ly: No such file or directory
+collect2: error: ld returned 1 exit status
+
+
+raf@raf-VirtualBox:~/Compilation/TP_Project/src$ 
+gcc lex.yy.c bison_code.tab.c main.c sym_tab.c -lfl 
+/usr/bin/ld: /tmp/cce2q5W8.o: in function `yyparse':
+bison_code.tab.c:(.text+0x903): undefined reference to `yyerror'
+/usr/bin/ld: bison_code.tab.c:(.text+0xaa5): undefined reference to `yyerror'
+collect2: error: ld returned 1 exit status

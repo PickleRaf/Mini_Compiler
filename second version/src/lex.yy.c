@@ -858,12 +858,12 @@ YY_RULE_SETUP
 case 15:
 YY_RULE_SETUP
 #line 36 "flex_code.l"
-{yylval.string=strdup(yytext);return(BOOL);}
+{strcpy(yylval.boolV, strdup(yytext));return(BOOL);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 37 "flex_code.l"
-{yylval.string=strdup(yytext);return(IDF);}
+{strcpy(yylval.string, strdup(yytext));return(IDF);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP

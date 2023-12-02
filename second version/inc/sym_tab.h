@@ -1,23 +1,19 @@
 #ifndef SYM_TAB_H 
 #define SYM_TAB_H
 
-#include "../src/sym_tab.c"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
 
-typedef  STN* STNP;
-
 typedef struct Symbole_Table_Node{
-    char EntityName[11];
-    char EntityCode[15];
-    char EntityType[10];
+    char *EntityName;
+    char *EntityCode;
+    char *EntityType;
     bool Constant;
     int LineNumber;
-    STNP NextNode; 
+    struct Symbole_Table_Node* NextNode; 
 }STN;
 
 

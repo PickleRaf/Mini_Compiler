@@ -1,27 +1,30 @@
-#include "../inc/sym_tab.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-char Current_type[];
-char Current_const_valtype[];
-STNP List_head = NULL;
-STNP List_tail = NULL;
+#include "../inc/sym_tab.h"
+
+char* Current_type;
+char* Current_const_valtype;
+STN* List_head = NULL;
+STN* List_tail = NULL;
 int stnCounter = 0;
 
 void Sym_Tab_Destroy(){
-    STNP Q1 = List_head;
-    STNP Q2 = NULL;
+    STN* Q1 = List_head;
+    STN* Q2 = NULL;
     while(Q1 != NULL){
-        free(Q1->m_EntityName);
-        Q1->m_EntityName = NULL;
-        free(Q1->m_EntityCode);
-        Q1->m_EntityCode = NULL;
-        free(Q1->m_EntityType);
-        Q1->m_EntityCode = NULL;
+        free(Q1-> EntityName);
+        Q1-> EntityName = NULL;
+      
+        free(Q1-> EntityCode);
+        Q1-> EntityCode = NULL;
+        
+        free(Q1-> EntityType);
+        Q1-> EntityCode = NULL;
+        
         Q2 = Q1 ;
-        Q1= Q1->NextNode;
+        Q1= Q1-> NextNode;
         free(Q2);
     }
     List_head = NULL;
@@ -30,7 +33,7 @@ void Sym_Tab_Destroy(){
 
 int search(char entityName[])
 {
-STNP Q = List_head;
+STN* Q = List_head;
 while(Q != NULL )
 {
 if (strcmp(entityName,Q->EntityName)==0) return Q->LineNumber;
@@ -80,10 +83,10 @@ printf("\t| EntityName | EntityCode | EntityType | Constant | LineNumber |\n");
 printf("__________________________________________________________________\n");
 
 int i=0;
-STNP Q = List_head;
+STN* Q = List_head;
  while(i < stnCounter)
  {
- 	printf("\t|%12s |%15s |%10s |%5s | %3s \n",
+ 	printf("\t|%12s |%15s |%10s |%5s | %d \n",
  		Q->EntityName, Q->EntityCode, Q->EntityType, Q->Constant?"true" : "false",
  		Q->LineNumber );
  	i++;
