@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 extern int line_counter;
-extern char[] Current_type;
-extern char[] Current_const_valtype;
+extern char Current_type[];
+extern char Current_const_valtype[];
 void yyerror();
 int yylex();
 
@@ -17,8 +17,8 @@ int yylex();
 %union{int integer;
 	float floatV;
 	bool boolV;
-	char[2] specialChar;
-	char[11] string;
+	char specialChar[2];
+	char string[11];
 	
 }
 
@@ -77,7 +77,7 @@ ConstDeclaration :
 					if(Current_const_valtype =="int"){
 						insert($3,"idf", Current_type, true);
 					}else{
-						print("incompatible type!");
+						printf("incompatible type!");
 					}	
 				break;
 				
@@ -85,7 +85,7 @@ ConstDeclaration :
 					if(Current_const_valtype =="float"){
 						insert($3,"idf", Current_type, true);
 					}else{
-						print("incompatible type!");
+						printf("incompatible type!");
 					}
 				break;
 				
@@ -93,7 +93,7 @@ ConstDeclaration :
 					if(Current_const_valtype =="boolean"){
 						insert($3,"idf", Current_type, true);
 					}else{
-						print("incompatible type!");
+						printf("incompatible type!");
 					}
 				break;
 			}
@@ -109,10 +109,10 @@ Const:
 		Current_const_valtype = "int";
 	}
 	|FLOAT{
-		Current_const_valtype = "float"
+		Current_const_valtype = "float";
 	}
 	|BOOL{
-		Current_const_valtype = "boolean"
+		Current_const_valtype = "boolean";
 	}
 ;
 
@@ -121,19 +121,19 @@ VarInit:
 			switch (Current_type){
 				case "int" :
 					if(Current_const_valtype !="int"){
-						print("incompatible type!");
+						printf("incompatible type!");
 					}	
 				break;
 				
 				case "float" : 
 					if(Current_const_valtype =="boolean"){
-						print("incompatible type!");
+						printf("incompatible type!");
 					}
 				break;
 				
 				case"boolean": 
 					if(Current_const_valtype !="boolean"){
-						print("incompatible type!");
+						printf("incompatible type!");
 					}
 				break;
 			}	

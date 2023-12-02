@@ -91,9 +91,9 @@ union YYSTYPE
 #line 17 "bison_code.y"
 int integer;
 	float floatV;
-	boolean bool;
-	char[2] specialChar;
-	char[11] string;
+	bool boolV;
+	char specialChar[2];
+	char string[11];
 	
 
 #line 100 "bison_code.tab.h"

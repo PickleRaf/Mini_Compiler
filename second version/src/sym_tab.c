@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-char[] Current_type;
-char[] Current_const_valtype;
+char Current_type[];
+char Current_const_valtype[];
 STNP List_head = NULL;
 STNP List_tail = NULL;
 int stnCounter = 0;
@@ -13,15 +13,15 @@ int stnCounter = 0;
 void Sym_Tab_Destroy(){
     STNP Q1 = List_head;
     STNP Q2 = NULL;
-    while(Q != NULL){
+    while(Q1 != NULL){
         free(Q1->m_EntityName);
         Q1->m_EntityName = NULL;
         free(Q1->m_EntityCode);
         Q1->m_EntityCode = NULL;
-        free(Q-1>m_EntityType);
+        free(Q1->m_EntityType);
         Q1->m_EntityCode = NULL;
-        Q2 = Q ;
-        Q= Q->NextNode;
+        Q2 = Q1 ;
+        Q1= Q1->NextNode;
         free(Q2);
     }
     List_head = NULL;
@@ -46,7 +46,9 @@ void insert(char entityName[], char entityCode[], char entityType[], bool consta
 
 		STN* newNode = (STN*)malloc(sizeof(STN));
 
-		if(newNode == NULL ) {printf("memory allocation failed!");}
+		if(newNode == NULL ) {
+			printf("memory allocation failed!");
+		}
 
 		strcpy(newNode->EntityName,entityName); 
 		strcpy(newNode->EntityCode,entityCode);
@@ -55,7 +57,7 @@ void insert(char entityName[], char entityCode[], char entityType[], bool consta
 		stnCounter++;
 		newNode->LineNumber = stnCounter;
        
-		if(Sym_head == NULL){
+		if(List_head == NULL){
 			newNode->NextNode = NULL;
         		List_head = List_tail = newNode;
 		}
@@ -65,7 +67,9 @@ void insert(char entityName[], char entityCode[], char entityType[], bool consta
 			List_tail = newNode;
 		}
 	}
-	else{ printf
+	else{
+		printf("idf already exists !");
+	}
 }
 
 void print_STN ()
@@ -80,8 +84,8 @@ STNP Q = List_head;
  while(i < stnCounter)
  {
  	printf("\t|%12s |%15s |%10s |%5s | %3s \n",
- 	Q->EntityName,Q->EntityCode,Q->EntityType,Q->Constant?"true"|"false",
- 	Q->LineNumber );
+ 		Q->EntityName, Q->EntityCode, Q->EntityType, Q->Constant?"true"|"false",
+ 		Q->LineNumber );
  	i++;
  	Q = Q->NextNode;
  }

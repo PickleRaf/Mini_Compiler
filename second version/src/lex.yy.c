@@ -808,22 +808,22 @@ return(KW_BEGIN);
 case 5:
 YY_RULE_SETUP
 #line 25 "flex_code.l"
-return(KW_END);}
+return(KW_END);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 26 "flex_code.l"
-return(KW_For);}
+return(KW_For);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 27 "flex_code.l"
-return(KW_IF);}
+return(KW_If);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 28 "flex_code.l"
-return(KW_else);}
+return(KW_Else);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
@@ -847,88 +847,88 @@ return(KW_Function);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 35 "flex_code.l"
+#line 34 "flex_code.l"
 {yylval.integer=atoi(yytext);return(INT);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 36 "flex_code.l"
+#line 35 "flex_code.l"
 {yylval.floatV=atof(yytext);return(FLOAT);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 37 "flex_code.l"
+#line 36 "flex_code.l"
 {yylval.string=strdup(yytext);return(BOOL);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 38 "flex_code.l"
+#line 37 "flex_code.l"
 {yylval.string=strdup(yytext);return(IDF);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 40 "flex_code.l"
+#line 39 "flex_code.l"
 return yytext[0];
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 41 "flex_code.l"
+#line 40 "flex_code.l"
 return(SC_ASSIGN);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 42 "flex_code.l"
+#line 41 "flex_code.l"
 return(SC_EQUALS);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 43 "flex_code.l"
+#line 42 "flex_code.l"
 return(SC_DIFF);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 44 "flex_code.l"
+#line 43 "flex_code.l"
 return(SC_LOE);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 45 "flex_code.l"
+#line 44 "flex_code.l"
 return(SC_GOE);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 46 "flex_code.l"
+#line 45 "flex_code.l"
 return(SC_INCR);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 47 "flex_code.l"
+#line 46 "flex_code.l"
 return(SC_DECR);
 	YY_BREAK
 case 25:
 /* rule 25 can match eol */
 YY_RULE_SETUP
-#line 48 "flex_code.l"
+#line 47 "flex_code.l"
 line_counter ++; 
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 49 "flex_code.l"
+#line 48 "flex_code.l"
 
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 50 "flex_code.l"
+#line 49 "flex_code.l"
 
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 51 "flex_code.l"
+#line 50 "flex_code.l"
 printf("erreur a la ligne %d \n",line_counter);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 52 "flex_code.l"
+#line 51 "flex_code.l"
 ECHO;
 	YY_BREAK
 #line 935 "lex.yy.c"
@@ -1936,7 +1936,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 52 "flex_code.l"
+#line 51 "flex_code.l"
 
 
 int yywrap(void)

@@ -76,8 +76,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 extern int line_counter;
-extern char[] Current_type;
-extern char[] Current_const_valtype;
+extern char Current_type[];
+extern char Current_const_valtype[];
 void yyerror();
 int yylex();
 
@@ -1138,7 +1138,7 @@ yyreduce:
 					if(Current_const_valtype =="int"){
 						insert((yyvsp[-3].string),"idf", Current_type, true);
 					}else{
-						print("incompatible type!");
+						printf("incompatible type!");
 					}	
 				break;
 				
@@ -1146,7 +1146,7 @@ yyreduce:
 					if(Current_const_valtype =="float"){
 						insert((yyvsp[-3].string),"idf", Current_type, true);
 					}else{
-						print("incompatible type!");
+						printf("incompatible type!");
 					}
 				break;
 				
@@ -1154,7 +1154,7 @@ yyreduce:
 					if(Current_const_valtype =="boolean"){
 						insert((yyvsp[-3].string),"idf", Current_type, true);
 					}else{
-						print("incompatible type!");
+						printf("incompatible type!");
 					}
 				break;
 			}
@@ -1177,7 +1177,7 @@ yyreduce:
   case 9: /* Const: FLOAT  */
 #line 111 "bison_code.y"
               {
-		Current_const_valtype = "float"
+		Current_const_valtype = "float";
 	}
 #line 1183 "bison_code.tab.c"
     break;
@@ -1185,7 +1185,7 @@ yyreduce:
   case 10: /* Const: BOOL  */
 #line 114 "bison_code.y"
              {
-		Current_const_valtype = "boolean"
+		Current_const_valtype = "boolean";
 	}
 #line 1191 "bison_code.tab.c"
     break;
@@ -1196,19 +1196,19 @@ yyreduce:
 			switch (Current_type){
 				case "int" :
 					if(Current_const_valtype !="int"){
-						print("incompatible type!");
+						printf("incompatible type!");
 					}	
 				break;
 				
 				case "float" : 
 					if(Current_const_valtype =="boolean"){
-						print("incompatible type!");
+						printf("incompatible type!");
 					}
 				break;
 				
 				case"boolean": 
 					if(Current_const_valtype !="boolean"){
-						print("incompatible type!");
+						printf("incompatible type!");
 					}
 				break;
 			}	

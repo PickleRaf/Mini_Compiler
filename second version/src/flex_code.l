@@ -22,15 +22,14 @@ comment		\{[^}]*\}
 "float"		return(KW_float);
 "boolean"	return(KW_boolean);
 "BEGIN"		return(KW_BEGIN);
-"END"		return(KW_END);}
-"For"		return(KW_For);}
-"If"		return(KW_IF);}
-"else"		return(KW_else);}
+"END"		return(KW_END);
+"For"		return(KW_For);
+"If"		return(KW_If);
+"else"		return(KW_Else);
 "Const"		return(KW_Const);
 "return"	return(KW_Return);
 "void"		return(KW_Void);
 "function"	return(KW_Function);
-
 
 integre		{yylval.integer=atoi(yytext);return(INT);}
 float_value	{yylval.floatV=atof(yytext);return(FLOAT);}
