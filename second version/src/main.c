@@ -27,14 +27,14 @@ int main(int argc, char** argv){
     	 
     	printf("%s Analysis: \n", argv[i]);
 
-		yylex();	 
+	yylex();	 
     	yyparse();
-   	 	print_STN();
-   	 	Sym_Tab_Destroy();
+   	print_STN();
+   	Sym_Tab_Destroy();
    	 
-   	 	fclose(yyin);
+   	fclose(yyin);
    	 
-   	 	printf("\n--------------------------------------\n");
+   	 printf("\n--------------------------------------\n");
     	}
     	
     	return 0; // success

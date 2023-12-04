@@ -558,9 +558,9 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    62,    62,    71,    72,    73,    74,    78,    95,    98,
-     101,   107,   116,   120,   134,   153,   156,   159,   165,   166,
-     174,   180,   181,   182,   183,   184,   185,   189,   190,   191,
-     196,   197,   198,   199,   200,   201,   206,   210,   214
+     101,   107,   116,   120,   134,   153,   158,   163,   171,   172,
+     180,   186,   187,   188,   189,   190,   191,   195,   196,   197,
+     202,   203,   204,   205,   206,   207,   212,   216,   220
 };
 #endif
 
@@ -1289,55 +1289,61 @@ yyreduce:
   case 15: /* Type: KW_int  */
 #line 153 "bison_code.y"
               { 
-		strcpy(Current_type,"int");
+		free(Current_type);
+		Current_type=NULL;
+		Current_type = strdup("int");
 	}
-#line 1295 "bison_code.tab.c"
+#line 1297 "bison_code.tab.c"
     break;
 
   case 16: /* Type: KW_float  */
-#line 156 "bison_code.y"
+#line 158 "bison_code.y"
                  { 
-		strcpy(Current_type,"float");
+		free(Current_type);
+		Current_type=NULL;
+		Current_type = strdup("float");
 	}
-#line 1303 "bison_code.tab.c"
+#line 1307 "bison_code.tab.c"
     break;
 
   case 17: /* Type: KW_boolean  */
-#line 159 "bison_code.y"
+#line 163 "bison_code.y"
                    { 
-		strcpy(Current_type,"boolean");
+		free(Current_type);
+		Current_type=NULL;
+		Current_type = strdup("boolean");
 	}
-#line 1311 "bison_code.tab.c"
+#line 1317 "bison_code.tab.c"
     break;
 
   case 19: /* Instructions_List: KW_BEGIN stmt KW_END  */
-#line 166 "bison_code.y"
+#line 172 "bison_code.y"
                                {
 			isDeclaration = true ;
 			isAssignment = false ;
 	}
-#line 1320 "bison_code.tab.c"
+#line 1326 "bison_code.tab.c"
     break;
 
   case 20: /* Assignment: G_IDF SC_ASSIGN exprA ';'  */
-#line 174 "bison_code.y"
+#line 180 "bison_code.y"
                                   {
    	 	}
-#line 1327 "bison_code.tab.c"
+#line 1333 "bison_code.tab.c"
     break;
 
   case 29: /* exprA: IDF  */
-#line 191 "bison_code.y"
+#line 197 "bison_code.y"
              {
 		if(search((yyvsp[0].string))==-1){
 			printf("idf NOT DECLARED !");
 		}
 	}
-#line 1337 "bison_code.tab.c"
+#line 1343 "bison_code.tab.c"
     break;
 
 
-#line 1341 "bison_code.tab.c"
+#line 1347 "bison_code.tab.c"
 
       default: break;
     }
@@ -1530,7 +1536,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 217 "bison_code.y"
+#line 223 "bison_code.y"
 
 
 		/*C code*/

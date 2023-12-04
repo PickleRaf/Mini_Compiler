@@ -788,122 +788,122 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 21 "flex_code.l"
-return(KW_int);
+return(KW_int);printf("21");
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 22 "flex_code.l"
-return(KW_float);
+return(KW_float);printf("22");
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 23 "flex_code.l"
-return(KW_boolean);
+return(KW_boolean);printf("22");
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 24 "flex_code.l"
-return(KW_BEGIN);
+return(KW_BEGIN);printf("22");
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 25 "flex_code.l"
-return(KW_END);
+return(KW_END);printf("22");
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 26 "flex_code.l"
-return(KW_For);
+return(KW_For);printf("22");
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 27 "flex_code.l"
-return(KW_If);
+return(KW_If);printf("22");
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 28 "flex_code.l"
-return(KW_Else);
+return(KW_Else);printf("22");
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 29 "flex_code.l"
-return(KW_Const);
+return(KW_Const);printf("22");
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 30 "flex_code.l"
-return(KW_Return);
+return(KW_Return);printf("22");
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 31 "flex_code.l"
-return(KW_Void);
+return(KW_Void);printf("22");
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 32 "flex_code.l"
-return(KW_Function);
+return(KW_Function);printf("22");
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 34 "flex_code.l"
-{yylval.integer=atoi(yytext);return(INT);}
+{yylval.integer=atoi(yytext);return(INT);printf("22");}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 35 "flex_code.l"
-{yylval.floatV=atof(yytext);return(FLOAT);}
+{yylval.floatV=atof(yytext);return(FLOAT);printf("22");}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 36 "flex_code.l"
-{strcpy(yylval.boolV, strdup(yytext));return(BOOL);}
+{strcpy(yylval.boolV, strdup(yytext));return(BOOL);printf("22");}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 37 "flex_code.l"
-{strcpy(yylval.string, strdup(yytext));return(IDF);}
+{strcpy(yylval.string, strdup(yytext));return(IDF);printf("22");}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 39 "flex_code.l"
-return yytext[0];
+return yytext[0];printf("22");
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 40 "flex_code.l"
-return(SC_ASSIGN);
+return(SC_ASSIGN);printf("22");
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 41 "flex_code.l"
-return(SC_EQUALS);
+return(SC_EQUALS);printf("22");
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 42 "flex_code.l"
-return(SC_DIFF);
+return(SC_DIFF);printf("22");
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 43 "flex_code.l"
-return(SC_LOE);
+return(SC_LOE);printf("22");
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 44 "flex_code.l"
-return(SC_GOE);
+return(SC_GOE);printf("22");
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 45 "flex_code.l"
-return(SC_INCR);
+return(SC_INCR);printf("22");
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 46 "flex_code.l"
-return(SC_DECR);
+return(SC_DECR);printf("22");
 	YY_BREAK
 case 25:
 /* rule 25 can match eol */

@@ -151,13 +151,19 @@ G_IDF:
 
 Type:
 	KW_int{ 
-		strcpy(Current_type,"int");
+		free(Current_type);
+		Current_type=NULL;
+		Current_type = strdup("int");
 	}
 	|KW_float{ 
-		strcpy(Current_type,"float");
+		free(Current_type);
+		Current_type=NULL;
+		Current_type = strdup("float");
 	}
 	|KW_boolean{ 
-		strcpy(Current_type,"boolean");
+		free(Current_type);
+		Current_type=NULL;
+		Current_type = strdup("boolean");
 	}
 ;
 
