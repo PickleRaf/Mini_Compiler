@@ -503,7 +503,7 @@ char *yytext;
 #line 2 "flex_code.l"
     #include "../inc/bison_code.tab.h"
     #include "../inc/sym_tab.h"
-int line_counter = 0 ;
+int line_counter = 1 ;
 int colomn_counter = 0 ;
 extern YYSTYPE yylval;
 
@@ -914,12 +914,12 @@ line_counter ++;
 case 26:
 YY_RULE_SETUP
 #line 48 "flex_code.l"
-
+{	}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 49 "flex_code.l"
-
+{	}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP

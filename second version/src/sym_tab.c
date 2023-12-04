@@ -4,11 +4,13 @@
 #include <stdbool.h>
 #include "../inc/sym_tab.h"
 
+int stnCounter = 0;
 char* Current_type;
+bool isAssignment = true;
+bool isDeclaration = false;
 char* Current_const_valtype;
 STN* List_head = NULL;
 STN* List_tail = NULL;
-int stnCounter = 0;
 
 void Sym_Tab_Destroy(){
     STN* Q1 = List_head;

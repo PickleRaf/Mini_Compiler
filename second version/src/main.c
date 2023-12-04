@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 extern FILE* yyin;
+extern int yylex();
 
 int main(int argc, char** argv){
    
@@ -24,9 +25,10 @@ int main(int argc, char** argv){
    	 		return 1;//error
    	 	}
     	 
-    		printf("%s Analysis: \n", argv[i]);
-    	 
-    	 	yyparse();
+    	printf("%s Analysis: \n", argv[i]);
+
+		yylex();	 
+    	yyparse();
    	 	print_STN();
    	 	Sym_Tab_Destroy();
    	 

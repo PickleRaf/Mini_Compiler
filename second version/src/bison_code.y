@@ -7,8 +7,10 @@
 #include "../inc/sym_tab.h" 
 
 extern int line_counter;
-extern char Current_type[];
-extern char Current_const_valtype[];
+extern bool isAssignment;
+extern bool isDeclaration;
+extern char* Current_type;
+extern char* Current_const_valtype;
 void yyerror();
 int yylex();
 
@@ -17,13 +19,14 @@ int yylex();
 		/* Yacc definitions*/
 %union{int integer;
 	float floatV;
-	char boolV[5];
-	char specialChar[2];
-	char string[11];
+	char* boolV;
+	char* specialChar;
+	char* string;
 	
 }
 
-%start 	Prog
+%start 	Programme
+
 %token	INT FLOAT BOOL IDF 
 %token	SC_ASSIGN SC_EQUALS SC_DIFF SC_LOE SC_GOE  SC_INCR SC_DECR
 %token	KW_int KW_float KW_boolean KW_For KW_If KW_Else KW_BEGIN KW_END KW_Return KW_Const KW_Void KW_Pc KW_Fc KW_Function KW_While
@@ -54,8 +57,9 @@ int yylex();
 
 %%
 		/*grammar*/
-Prog: 
-	Declarations_Liste /*Instructions_Liste */{
+
+Programme: 
+	Declarations_List Instructions_List{
 		
 		printf("This code is correct");
 		YYACCEPT;
@@ -63,15 +67,16 @@ Prog:
 ;
 
 		/*handling declarations*/
-Declarations_Liste:
+Declarations_List:
 	%empty 
-	|ConstDeclaration Declarations_Liste
-	|VarDeclaration Declarations_Liste
-	|VarInit Declarations_Liste
+	|ConstDeclaration Declarations_List {printf("went through the consdec ");}
+	|VarDeclaration Declarations_List
+	|VarInit Declarations_List	
 ;
 
 ConstDeclaration :
 	KW_Const Type IDF SC_ASSIGN Const ';'{
+
 		if(search($3) == -1){
 			if(strcmp(Current_const_valtype,Current_type)==0){
 				insert($3,"idf", Current_type, true);
@@ -113,22 +118,35 @@ VarDeclaration :
 
 G_IDF:
 	G_IDF ',' IDF{ 
-		if(search($3)!=-1){
-			printf("idf already declared !");
-		}
-		else{
+		if(isDeclaration && !isAssignment){
+			if(search($3)!=-1){
+				printf("idf already declared !");
+			}
+			else{
 			insert($3,"idf", Current_type, false);	
+			}
+		}else if(!isDeclaration && isAssignment){
+			if(search($3)==-1){
+				printf("idf NOT DECLARED !");
+			}
 		}
 	}
 	|IDF { 
-		if(search($1)!=-1){
-			printf("idf already declared !");
-		}
-		else{
-			insert($1,"idf", Current_type, false);	
+		if(isDeclaration && !isAssignment){
+			if(search($1)!=-1){
+				printf("idf already declared !");
+			}
+			else{
+				insert($1,"idf", Current_type, false);	
+			}
+		}else if(!isDeclaration && isAssignment){
+			if(search($1)==-1){
+				printf("idf NOT DECLARED !");
+			}
 		}
 	}
-
+	
+	
 ;
 
 Type:
@@ -142,41 +160,64 @@ Type:
 		strcpy(Current_type,"boolean");
 	}
 ;
-/*
-Instructions_Liste:
-	KW_BEGIN stmt KW_END
+
+Instructions_List:
+	%empty
+	|KW_BEGIN stmt KW_END  {
+			isDeclaration = true ;
+			isAssignment = false ;
+	}
 ;
 
 
 Assignment:
-   	 G_IDF SC_ASSIGN expr ';'{
+   	 G_IDF SC_ASSIGN exprA ';'{
    	 	}
    	 
 ;
    
 stmt:
-	KW_If '(' expr')' stmt
-	|KW_While '(' expr')' stmt
-	|expr
-	|';'
+	%empty
+	|If_instruction stmt
+	|IfElse_instruction stmt
+	|While_insruction stmt
+	|exprA stmt 
+	|Assignment stmt
 ;
 
-expr:
-	Const
-	|IDF
-	|'(' expr ')'
-	|expr'(' expr')'
-	|expr '+' expr
-	|expr '-' expr	%prec '+'
-	|expr SC_EQUALS expr
-	|expr SC_DIFF expr
-	|'*' expr
-	|'/' expr
-	|'%' expr
+exprA:
+	INT
+	|FLOAT
+	|IDF {
+		if(search($1)==-1){
+			printf("idf NOT DECLARED !");
+		}
+	}
+	|'(' exprA ')'
+	|exprA '+' exprA
+	|exprA '-' exprA	%prec '+'
+	|exprA '*' exprA
+	|exprA '/' exprA
+	|exprA '%' exprA
+	
 ;
-*/
+
+If_instruction :
+	KW_If '(' exprA')' '{' stmt  '}'
+;
+
+IfElse_instruction :
+	If_instruction KW_Else '{' stmt '}'
+;
+
+While_insruction :
+		KW_While '(' exprA')' '{' stmt '}'
+;
+
 %%
 
 		/*C code*/
-		
+		void yyerror(char const *s){
+			fprintf(stderr,"%s\n", s);
+		}
 

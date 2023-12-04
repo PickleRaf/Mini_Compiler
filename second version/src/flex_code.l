@@ -1,7 +1,7 @@
 %{
     #include "../inc/bison_code.tab.h"
     #include "../inc/sym_tab.h"
-int line_counter = 0 ;
+int line_counter = 1 ;
 int colomn_counter = 0 ;
 extern YYSTYPE yylval;
 
@@ -14,7 +14,7 @@ idf		{letter}({letter}[_]?|{digit}[_]?)*
 integre		[-+]?([1-9][0-9]*|0)
 float_value	[-+]?([1-9][0-9]*|0)(\.[0-9]+)?
 boolean_value 	false|true
-comment		\{[^}]*\}
+comment		"{" [^}] "}"
 
 %%
 
@@ -45,8 +45,8 @@ idf		{strcpy(yylval.string, strdup(yytext));return(IDF);}
 "++"			return(SC_INCR);
 "--"			return(SC_DECR);
 \n			line_counter ++; 
-comment			
-[ \t]
+comment			{	}
+[ \t]			{	}
 .		printf("erreur a la ligne %d \n",line_counter);
 %%	
 

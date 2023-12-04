@@ -88,12 +88,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 18 "bison_code.y"
+#line 20 "bison_code.y"
 int integer;
 	float floatV;
-	char boolV[5];
-	char specialChar[2];
-	char string[11];
+	char* boolV;
+	char* specialChar;
+	char* string;
 	
 
 #line 100 "bison_code.tab.h"

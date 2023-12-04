@@ -77,13 +77,15 @@
 #include "../inc/sym_tab.h" 
 
 extern int line_counter;
-extern char Current_type[];
-extern char Current_const_valtype[];
+extern bool isAssignment;
+extern bool isDeclaration;
+extern char* Current_type;
+extern char* Current_const_valtype;
 void yyerror();
 int yylex();
 
 
-#line 87 "bison_code.tab.c"
+#line 89 "bison_code.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -148,15 +150,25 @@ enum yysymbol_kind_t
   YYSYMBOL_34_ = 34,                       /* '%'  */
   YYSYMBOL_35_ = 35,                       /* '('  */
   YYSYMBOL_36_ = 36,                       /* ';'  */
-  YYSYMBOL_YYACCEPT = 37,                  /* $accept  */
-  YYSYMBOL_Prog = 38,                      /* Prog  */
-  YYSYMBOL_Declarations_Liste = 39,        /* Declarations_Liste  */
-  YYSYMBOL_ConstDeclaration = 40,          /* ConstDeclaration  */
-  YYSYMBOL_Const = 41,                     /* Const  */
-  YYSYMBOL_VarInit = 42,                   /* VarInit  */
-  YYSYMBOL_VarDeclaration = 43,            /* VarDeclaration  */
-  YYSYMBOL_G_IDF = 44,                     /* G_IDF  */
-  YYSYMBOL_Type = 45                       /* Type  */
+  YYSYMBOL_37_ = 37,                       /* ')'  */
+  YYSYMBOL_38_ = 38,                       /* '{'  */
+  YYSYMBOL_39_ = 39,                       /* '}'  */
+  YYSYMBOL_YYACCEPT = 40,                  /* $accept  */
+  YYSYMBOL_Programme = 41,                 /* Programme  */
+  YYSYMBOL_Declarations_List = 42,         /* Declarations_List  */
+  YYSYMBOL_ConstDeclaration = 43,          /* ConstDeclaration  */
+  YYSYMBOL_Const = 44,                     /* Const  */
+  YYSYMBOL_VarInit = 45,                   /* VarInit  */
+  YYSYMBOL_VarDeclaration = 46,            /* VarDeclaration  */
+  YYSYMBOL_G_IDF = 47,                     /* G_IDF  */
+  YYSYMBOL_Type = 48,                      /* Type  */
+  YYSYMBOL_Instructions_List = 49,         /* Instructions_List  */
+  YYSYMBOL_Assignment = 50,                /* Assignment  */
+  YYSYMBOL_stmt = 51,                      /* stmt  */
+  YYSYMBOL_exprA = 52,                     /* exprA  */
+  YYSYMBOL_If_instruction = 53,            /* If_instruction  */
+  YYSYMBOL_IfElse_instruction = 54,        /* IfElse_instruction  */
+  YYSYMBOL_While_insruction = 55           /* While_insruction  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -484,16 +496,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  12
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   29
+#define YYLAST   112
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  37
+#define YYNTOKENS  40
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  9
+#define YYNNTS  16
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  17
+#define YYNRULES  38
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  31
+#define YYNSTATES  84
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   283
@@ -514,7 +526,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,    34,     2,     2,
-      35,     2,    32,    30,    29,    31,     2,    33,     2,     2,
+      35,    37,    32,    30,    29,    31,     2,    33,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,    36,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -522,7 +534,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,    38,     2,    39,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -545,8 +557,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    58,    58,    67,    68,    69,    70,    74,    90,    93,
-      96,   102,   111,   115,   123,   135,   138,   141
+       0,    62,    62,    71,    72,    73,    74,    78,    95,    98,
+     101,   107,   116,   120,   134,   153,   156,   159,   165,   166,
+     174,   180,   181,   182,   183,   184,   185,   189,   190,   191,
+     196,   197,   198,   199,   200,   201,   206,   210,   214
 };
 #endif
 
@@ -567,9 +581,11 @@ static const char *const yytname[] =
   "SC_INCR", "SC_DECR", "KW_int", "KW_float", "KW_boolean", "KW_For",
   "KW_If", "KW_Else", "KW_BEGIN", "KW_END", "KW_Return", "KW_Const",
   "KW_Void", "KW_Pc", "KW_Fc", "KW_Function", "KW_While", "','", "'+'",
-  "'-'", "'*'", "'/'", "'%'", "'('", "';'", "$accept", "Prog",
-  "Declarations_Liste", "ConstDeclaration", "Const", "VarInit",
-  "VarDeclaration", "G_IDF", "Type", YY_NULLPTR
+  "'-'", "'*'", "'/'", "'%'", "'('", "';'", "')'", "'{'", "'}'", "$accept",
+  "Programme", "Declarations_List", "ConstDeclaration", "Const", "VarInit",
+  "VarDeclaration", "G_IDF", "Type", "Instructions_List", "Assignment",
+  "stmt", "exprA", "If_instruction", "IfElse_instruction",
+  "While_insruction", YY_NULLPTR
 };
 
 static const char *
@@ -579,12 +595,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-20)
+#define YYPACT_NINF (-29)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-1)
+#define YYTABLE_NINF (-15)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -593,10 +609,15 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -13,   -20,   -20,   -20,   -10,    11,   -20,   -13,   -13,   -13,
-       9,    10,   -20,   -20,   -20,   -20,   -20,    -7,    12,     4,
-      14,   -20,     4,   -20,   -20,   -20,   -19,   -20,   -18,   -20,
-     -20
+      43,   -29,   -29,   -29,    -4,     8,    -7,    43,    43,    43,
+      10,    12,   -29,    37,   -29,   -29,   -29,   -29,   -29,    18,
+      17,   -29,   -29,    -6,    -3,     9,    16,    45,    37,    24,
+       3,    11,    37,    37,    23,    47,   -29,    23,    16,    16,
+     -29,    46,    16,   -29,   -29,    16,    16,    16,    16,    16,
+     -29,    25,   -29,   -29,   -29,   -29,   -29,   -29,    20,   -29,
+      26,    54,    62,   -29,    70,    75,    75,   -29,   -29,   -29,
+      37,   -29,   -29,    35,    44,   -29,    36,    37,    37,   -29,
+      42,    50,   -29,   -29
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -604,22 +625,29 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       3,    15,    16,    17,     0,     0,     2,     3,     3,     3,
-       0,     0,     1,     4,     6,     5,    14,     0,     0,     0,
-       0,    12,     0,     8,     9,    10,     0,    13,     0,    11,
-       7
+       3,    15,    16,    17,     0,     0,    18,     3,     3,     3,
+       0,     0,     1,    21,     2,     4,     6,     5,    14,     0,
+       0,    27,    28,    29,     0,     0,     0,     0,    21,     0,
+      21,    21,    21,    21,     0,     0,    12,     0,     0,     0,
+      29,     0,     0,    26,    19,     0,     0,     0,     0,     0,
+      25,     0,    22,    23,    24,     8,     9,    10,     0,    13,
+       0,     0,     0,    30,     0,    31,    32,    33,    34,    35,
+      21,    11,     7,     0,     0,    20,     0,    21,    21,    37,
+       0,     0,    36,    38
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -20,   -20,     5,   -20,    -1,   -20,   -20,   -20,    19
+     -29,   -29,   103,   -29,    53,   -29,   -29,    87,    94,   -29,
+     -29,   -28,    22,   -29,   -29,   -29
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     5,     6,     7,    26,     8,     9,    17,    10
+       0,     5,     6,     7,    58,     8,     9,    27,    10,    14,
+      28,    29,    30,    31,    32,    33
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -627,40 +655,67 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      19,     1,     2,     3,     1,     2,     3,    23,    24,    25,
-       4,    12,    13,    14,    15,    16,    18,    29,    30,    22,
-      27,    28,    20,    11,     0,     0,     0,     0,     0,    21
+      43,   -14,    50,    52,    53,    54,    21,    22,    12,    23,
+       1,     2,     3,    13,    21,    22,    18,    23,    20,    21,
+      22,    24,    40,   -14,    37,    34,    55,    56,    57,    24,
+      51,    25,    38,    45,    46,    47,    48,    49,    26,    25,
+      21,    22,    76,    23,    39,    44,    26,    35,    41,    80,
+      81,    26,    42,    59,    36,    24,    71,     1,     2,     3,
+      61,    62,    72,    70,    64,    25,     4,    65,    66,    67,
+      68,    69,    26,    77,    35,    79,    45,    46,    47,    48,
+      49,    82,    78,    63,    45,    46,    47,    48,    49,    83,
+      60,    73,    45,    46,    47,    48,    49,    19,    11,    74,
+      45,    46,    47,    48,    49,     0,    75,    47,    48,    49,
+      15,    16,    17
 };
 
 static const yytype_int8 yycheck[] =
 {
-       7,    14,    15,    16,    14,    15,    16,     3,     4,     5,
-      23,     0,     7,     8,     9,     6,     6,    36,    36,     7,
-       6,    22,    29,     4,    -1,    -1,    -1,    -1,    -1,    36
+      28,     7,    30,    31,    32,    33,     3,     4,     0,     6,
+      14,    15,    16,    20,     3,     4,     6,     6,     6,     3,
+       4,    18,     6,    29,     7,     7,     3,     4,     5,    18,
+      19,    28,    35,    30,    31,    32,    33,    34,    35,    28,
+       3,     4,    70,     6,    35,    21,    35,    29,    26,    77,
+      78,    35,     7,     6,    36,    18,    36,    14,    15,    16,
+      38,    39,    36,    38,    42,    28,    23,    45,    46,    47,
+      48,    49,    35,    38,    29,    39,    30,    31,    32,    33,
+      34,    39,    38,    37,    30,    31,    32,    33,    34,    39,
+      37,    37,    30,    31,    32,    33,    34,    10,     4,    37,
+      30,    31,    32,    33,    34,    -1,    36,    32,    33,    34,
+       7,     8,     9
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    14,    15,    16,    23,    38,    39,    40,    42,    43,
-      45,    45,     0,    39,    39,    39,     6,    44,     6,     7,
-      29,    36,     7,     3,     4,     5,    41,     6,    41,    36,
-      36
+       0,    14,    15,    16,    23,    41,    42,    43,    45,    46,
+      48,    48,     0,    20,    49,    42,    42,    42,     6,    47,
+       6,     3,     4,     6,    18,    28,    35,    47,    50,    51,
+      52,    53,    54,    55,     7,    29,    36,     7,    35,    35,
+       6,    52,     7,    51,    21,    30,    31,    32,    33,    34,
+      51,    19,    51,    51,    51,     3,     4,     5,    44,     6,
+      44,    52,    52,    37,    52,    52,    52,    52,    52,    52,
+      38,    36,    36,    37,    37,    36,    51,    38,    38,    39,
+      51,    51,    39,    39
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    37,    38,    39,    39,    39,    39,    40,    41,    41,
-      41,    42,    43,    44,    44,    45,    45,    45
+       0,    40,    41,    42,    42,    42,    42,    43,    44,    44,
+      44,    45,    46,    47,    47,    48,    48,    48,    49,    49,
+      50,    51,    51,    51,    51,    51,    51,    52,    52,    52,
+      52,    52,    52,    52,    52,    52,    53,    54,    55
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     0,     2,     2,     2,     6,     1,     1,
-       1,     5,     3,     3,     1,     1,     1,     1
+       0,     2,     2,     0,     2,     2,     2,     6,     1,     1,
+       1,     5,     3,     3,     1,     1,     1,     1,     0,     3,
+       4,     0,     2,     2,     2,     2,     2,     1,     1,     1,
+       3,     3,     3,     3,     3,     3,     7,     5,     7
 };
 
 
@@ -1123,19 +1178,26 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* Prog: Declarations_Liste  */
-#line 58 "bison_code.y"
-                                                  {
+  case 2: /* Programme: Declarations_List Instructions_List  */
+#line 62 "bison_code.y"
+                                           {
 		
 		printf("This code is correct");
 		YYACCEPT;
 	}
-#line 1134 "bison_code.tab.c"
+#line 1189 "bison_code.tab.c"
+    break;
+
+  case 4: /* Declarations_List: ConstDeclaration Declarations_List  */
+#line 72 "bison_code.y"
+                                            {printf("went through the consdec ");}
+#line 1195 "bison_code.tab.c"
     break;
 
   case 7: /* ConstDeclaration: KW_Const Type IDF SC_ASSIGN Const ';'  */
-#line 74 "bison_code.y"
+#line 78 "bison_code.y"
                                              {
+
 		if(search((yyvsp[-3].string)) == -1){
 			if(strcmp(Current_const_valtype,Current_type)==0){
 				insert((yyvsp[-3].string),"idf", Current_type, true);
@@ -1148,96 +1210,134 @@ yyreduce:
 			printf("idf already declared in ");
 		}		
 	}
-#line 1152 "bison_code.tab.c"
+#line 1214 "bison_code.tab.c"
     break;
 
   case 8: /* Const: INT  */
-#line 90 "bison_code.y"
+#line 95 "bison_code.y"
            { 
 		strcpy(Current_const_valtype,"int");
 	}
-#line 1160 "bison_code.tab.c"
+#line 1222 "bison_code.tab.c"
     break;
 
   case 9: /* Const: FLOAT  */
-#line 93 "bison_code.y"
+#line 98 "bison_code.y"
               {
 		strcpy(Current_const_valtype,"float");
 	}
-#line 1168 "bison_code.tab.c"
+#line 1230 "bison_code.tab.c"
     break;
 
   case 10: /* Const: BOOL  */
-#line 96 "bison_code.y"
+#line 101 "bison_code.y"
              {
 		strcpy(Current_const_valtype,"boolean");
 	}
-#line 1176 "bison_code.tab.c"
+#line 1238 "bison_code.tab.c"
     break;
 
   case 11: /* VarInit: Type G_IDF SC_ASSIGN Const ';'  */
-#line 102 "bison_code.y"
+#line 107 "bison_code.y"
                                         {
 	
 		if(strcmp(Current_const_valtype,Current_type)!=0){
 				printf("incompatible type!");
 		}
 	}
-#line 1187 "bison_code.tab.c"
+#line 1249 "bison_code.tab.c"
     break;
 
   case 13: /* G_IDF: G_IDF ',' IDF  */
-#line 115 "bison_code.y"
+#line 120 "bison_code.y"
                      { 
-		if(search((yyvsp[0].string))!=-1){
-			printf("idf already declared !");
-		}
-		else{
+		if(isDeclaration && !isAssignment){
+			if(search((yyvsp[0].string))!=-1){
+				printf("idf already declared !");
+			}
+			else{
 			insert((yyvsp[0].string),"idf", Current_type, false);	
+			}
+		}else if(!isDeclaration && isAssignment){
+			if(search((yyvsp[0].string))==-1){
+				printf("idf NOT DECLARED !");
+			}
 		}
 	}
-#line 1200 "bison_code.tab.c"
+#line 1268 "bison_code.tab.c"
     break;
 
   case 14: /* G_IDF: IDF  */
-#line 123 "bison_code.y"
+#line 134 "bison_code.y"
              { 
-		if(search((yyvsp[0].string))!=-1){
-			printf("idf already declared !");
-		}
-		else{
-			insert((yyvsp[0].string),"idf", Current_type, false);	
+		if(isDeclaration && !isAssignment){
+			if(search((yyvsp[0].string))!=-1){
+				printf("idf already declared !");
+			}
+			else{
+				insert((yyvsp[0].string),"idf", Current_type, false);	
+			}
+		}else if(!isDeclaration && isAssignment){
+			if(search((yyvsp[0].string))==-1){
+				printf("idf NOT DECLARED !");
+			}
 		}
 	}
-#line 1213 "bison_code.tab.c"
+#line 1287 "bison_code.tab.c"
     break;
 
   case 15: /* Type: KW_int  */
-#line 135 "bison_code.y"
+#line 153 "bison_code.y"
               { 
 		strcpy(Current_type,"int");
 	}
-#line 1221 "bison_code.tab.c"
+#line 1295 "bison_code.tab.c"
     break;
 
   case 16: /* Type: KW_float  */
-#line 138 "bison_code.y"
+#line 156 "bison_code.y"
                  { 
 		strcpy(Current_type,"float");
 	}
-#line 1229 "bison_code.tab.c"
+#line 1303 "bison_code.tab.c"
     break;
 
   case 17: /* Type: KW_boolean  */
-#line 141 "bison_code.y"
+#line 159 "bison_code.y"
                    { 
 		strcpy(Current_type,"boolean");
 	}
-#line 1237 "bison_code.tab.c"
+#line 1311 "bison_code.tab.c"
+    break;
+
+  case 19: /* Instructions_List: KW_BEGIN stmt KW_END  */
+#line 166 "bison_code.y"
+                               {
+			isDeclaration = true ;
+			isAssignment = false ;
+	}
+#line 1320 "bison_code.tab.c"
+    break;
+
+  case 20: /* Assignment: G_IDF SC_ASSIGN exprA ';'  */
+#line 174 "bison_code.y"
+                                  {
+   	 	}
+#line 1327 "bison_code.tab.c"
+    break;
+
+  case 29: /* exprA: IDF  */
+#line 191 "bison_code.y"
+             {
+		if(search((yyvsp[0].string))==-1){
+			printf("idf NOT DECLARED !");
+		}
+	}
+#line 1337 "bison_code.tab.c"
     break;
 
 
-#line 1241 "bison_code.tab.c"
+#line 1341 "bison_code.tab.c"
 
       default: break;
     }
@@ -1430,9 +1530,11 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 178 "bison_code.y"
+#line 217 "bison_code.y"
 
 
 		/*C code*/
-		
+		void yyerror(char const *s){
+			fprintf(stderr,"%s\n", s);
+		}
 
