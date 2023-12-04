@@ -10,44 +10,44 @@ extern YYSTYPE yylval;
 
 digit		[0-9]
 letter 		[a-zA-Z]
-idf		{letter}({letter}[_]?|{digit}[_]?)*
+identif		[a-zA-Z]([a-zA-Z][_]?|[0-9][_]?)*
 integre		[-+]?([1-9][0-9]*|0)
 float_value	[-+]?([1-9][0-9]*|0)(\.[0-9]+)?
 boolean_value 	false|true
-comment		"{" [^}] "}"
+comment		"{" [^{}]* "}"
 
 %%
 
-"int"		return(KW_int);printf("21");
-"float"		return(KW_float);printf("22");
-"boolean"	return(KW_boolean);printf("23");
-"BEGIN"		return(KW_BEGIN);printf("24");
-"END"		return(KW_END);printf("25");
-"For"		return(KW_For);printf("26");
-"If"		return(KW_If);printf("27");
-"else"		return(KW_Else);printf("28");
-"Const"		return(KW_Const);printf("29");
-"return"	return(KW_Return);printf("30");
-"void"		return(KW_Void);printf("31");
-"function"	return(KW_Function);printf("32");
+"int"		printf("21"); return(KW_int);
+"float"		printf("22"); return(KW_float);
+"boolean"	printf("23"); return(KW_boolean);
+"BEGIN"		printf("24"); return(KW_BEGIN);
+"END"		printf("25"); return(KW_END);
+"For"		printf("26"); return(KW_For);
+"If"		printf("27"); return(KW_If);
+"else"		printf("28"); return(KW_Else);
+"Const"		printf("29"); return(KW_Const);
+"return"	printf("30"); return(KW_Return);
+"void"		printf("31"); return(KW_Void);
+"function"	printf("32"); return(KW_Function);
 
-integre		{yylval.integer=atoi(yytext);return(INT);printf("33");}
-float_value	{yylval.floatV=atof(yytext);return(FLOAT);printf("34");}
-boolean_value	{strcpy(yylval.boolV, strdup(yytext));return(BOOL);printf("35");}
-idf		{strcpy(yylval.string, strdup(yytext));return(IDF);printf("36");}
+integre		{yylval.integerV=atoi(yytext); printf("33"); return(INT);}
+float_value	{yylval.floatV=atof(yytext); printf("34"); return(FLOAT);}
+boolean_value	{strcpy(yylval.boolV, strdup(yytext)); printf("35"); return(BOOL);}
 
-[-+*/%<>!,;(){}]	return yytext[0];printf("37");
-":="			return(SC_ASSIGN);printf("38");
-"=="			return(SC_EQUALS);printf("39");
-"<>"			return(SC_DIFF);printf("40");
-"<="			return(SC_LOE);printf("41");
-">="			return(SC_GOE);printf("42");
-"++"			return(SC_INCR);printf("43");
-"--"			return(SC_DECR);printf("44");
+identif		{strcpy(yylval.string, strdup(yytext)); printf("36"); return(IDF);}
+
+[-+*/%<>!,;()]		printf("37"); return yytext[0];
+":="			printf("38"); return(SC_ASSIGN);
+"=="			printf("39"); return(SC_EQUALS);
+"<>"			printf("40"); return(SC_DIFF);
+"<="			printf("41"); return(SC_LOE);
+">="			printf("42"); return(SC_GOE);
+"++"			printf("43"); return(SC_INCR);
+"--"			printf("44"); return(SC_DECR);
 \n			line_counter ++; 
-comment			{	}
 [ \t]			{	}
-.		printf("erreur a la ligne %d \n",line_counter);
+comment			{	}
 %%	
 
 int yywrap(void)

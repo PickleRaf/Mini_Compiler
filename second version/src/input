@@ -1,36 +1,3 @@
-{ double const declaration }
-Const int x = 5;
-Const int x = 6;
-Const float y = 5.8;
-Const float y = 0.98;
-Const boolean z = true;
-Const boolean z = false;
-
-{ double var declaration }
-int xx ;
-int xx ;
-float yy ;
-float yy ;
-boolean zz;
-boolean zz ;
-float x1,x1;
-
-{ double VarInit declaration }
-int xx = 5;
-int xx = 6;
-float yy = 0.98;
-float yy = 256;
-boolean zz= false;
-int xx1,xx1 = 10;
-
-{ incompatible types const }
-
-Const int i = 70.5;
-Cosnt float j= false;
-Const boolean k= 50; 
-
-{incompatible types varinit }
-
-int ii = 8.4523;
-float jj = true;
-boolean kk = 15.3;
+ {popi}
+ 
+ int kipo = 50;

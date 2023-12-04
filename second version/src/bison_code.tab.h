@@ -89,7 +89,7 @@ extern int yydebug;
 union YYSTYPE
 {
 #line 20 "bison_code.y"
-int integer;
+int integerV;
 	float floatV;
 	char* boolV;
 	char* specialChar;

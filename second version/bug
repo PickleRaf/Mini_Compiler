@@ -1,0 +1,40 @@
+(gdb) run input
+Starting program: /home/raf/Compilation/TP_Project/src/compile input
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+input Analysis: 
+
+Breakpoint 2, yylex () at /home/raf/Compilation/TP_Project/src/flex_code.l:29
+29	"Const"		return(KW_Const);printf("29");
+(gdb) continue
+Continuing.
+
+Breakpoint 6, yylex () at /home/raf/Compilation/TP_Project/src/flex_code.l:49
+49	[ \t]			{	}
+(gdb) 
+Continuing.
+
+Breakpoint 1, yylex () at /home/raf/Compilation/TP_Project/src/flex_code.l:21
+21	"int"		return(KW_int);printf("21");
+(gdb) 
+Continuing.
+
+Breakpoint 6, yylex () at /home/raf/Compilation/TP_Project/src/flex_code.l:49
+49	[ \t]			{	}
+(gdb) 
+Continuing.
+
+Breakpoint 4, yylex () at /home/raf/Compilation/TP_Project/src/flex_code.l:40
+40	":="			return(SC_ASSIGN);printf("38");
+(gdb) 
+Continuing.
+syntax error
+x
+/***************Table des symboles ******************/
+__________________________________________________________________
+	| EntityName | EntityCode | EntityType | Constant | LineNumber |
+__________________________________________________________________
+
+--------------------------------------
+[Inferior 1 (process 15206) exited normally]
+
