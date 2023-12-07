@@ -25,5 +25,7 @@ void insert(char entityName[], char entityCode[], char entityType[], bool consta
 
 void print_STN ();
 
+int count_nl(char *comment, size_t comment_len);
+
 
 #endif 

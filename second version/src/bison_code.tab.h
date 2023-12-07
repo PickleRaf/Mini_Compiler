@@ -88,15 +88,16 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 20 "bison_code.y"
-int integerV;
+#line 18 "bison_code.y"
+
+	int   boolV;
+	int   integerV;
 	float floatV;
-	char* boolV;
-	char* specialChar;
 	char* string;
+	char* specialChar;
 	
 
-#line 100 "bison_code.tab.h"
+#line 101 "bison_code.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

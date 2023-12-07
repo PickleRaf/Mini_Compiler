@@ -77,15 +77,13 @@
 #include "../inc/sym_tab.h" 
 
 extern int line_counter;
-extern bool isAssignment;
-extern bool isDeclaration;
 extern char* Current_type;
 extern char* Current_const_valtype;
 void yyerror();
 int yylex();
 
 
-#line 89 "bison_code.tab.c"
+#line 87 "bison_code.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -496,7 +494,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  12
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   112
+#define YYLAST   113
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  40
@@ -557,10 +555,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    62,    62,    71,    72,    73,    74,    78,    95,    98,
-     101,   107,   116,   120,   134,   153,   158,   163,   171,   172,
-     180,   186,   187,   188,   189,   190,   191,   195,   196,   197,
-     202,   203,   204,   205,   206,   207,   212,   216,   220
+       0,    62,    62,    71,    72,    73,    74,    78,    96,   101,
+     106,   114,   123,   127,   140,   158,   163,   168,   176,   177,
+     182,   188,   189,   190,   191,   192,   193,   197,   198,   199,
+     204,   205,   206,   207,   208,   209,   214,   218,   222
 };
 #endif
 
@@ -610,14 +608,14 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 static const yytype_int8 yypact[] =
 {
       43,   -29,   -29,   -29,    -4,     8,    -7,    43,    43,    43,
-      10,    12,   -29,    37,   -29,   -29,   -29,   -29,   -29,    18,
-      17,   -29,   -29,    -6,    -3,     9,    16,    45,    37,    24,
-       3,    11,    37,    37,    23,    47,   -29,    23,    16,    16,
-     -29,    46,    16,   -29,   -29,    16,    16,    16,    16,    16,
-     -29,    25,   -29,   -29,   -29,   -29,   -29,   -29,    20,   -29,
-      26,    54,    62,   -29,    70,    75,    75,   -29,   -29,   -29,
-      37,   -29,   -29,    35,    44,   -29,    36,    37,    37,   -29,
-      42,    50,   -29,   -29
+      10,    10,   -29,    37,   -29,   -29,   -29,   -29,   -29,    18,
+      -6,   -29,   -29,    45,   -17,   -11,    16,    46,    37,    35,
+       3,    11,    37,    37,    23,    26,   -29,    23,    16,    16,
+     -29,    47,    16,   -29,   -29,    16,    16,    16,    16,    16,
+     -29,    24,   -29,   -29,   -29,   -29,   -29,   -29,    27,   -29,
+      40,    55,    63,   -29,    71,    76,    76,   -29,   -29,   -29,
+      37,   -29,   -29,    44,    52,   -29,    59,    37,    37,   -29,
+      60,    67,   -29,   -29
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -639,7 +637,7 @@ static const yytype_int8 yydefact[] =
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -29,   -29,   103,   -29,    53,   -29,   -29,    87,    94,   -29,
+     -29,   -29,   104,   -29,    36,   -29,   -29,    34,    79,   -29,
      -29,   -28,    22,   -29,   -29,   -29
 };
 
@@ -655,34 +653,34 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      43,   -14,    50,    52,    53,    54,    21,    22,    12,    23,
-       1,     2,     3,    13,    21,    22,    18,    23,    20,    21,
-      22,    24,    40,   -14,    37,    34,    55,    56,    57,    24,
-      51,    25,    38,    45,    46,    47,    48,    49,    26,    25,
-      21,    22,    76,    23,    39,    44,    26,    35,    41,    80,
-      81,    26,    42,    59,    36,    24,    71,     1,     2,     3,
-      61,    62,    72,    70,    64,    25,     4,    65,    66,    67,
-      68,    69,    26,    77,    35,    79,    45,    46,    47,    48,
-      49,    82,    78,    63,    45,    46,    47,    48,    49,    83,
-      60,    73,    45,    46,    47,    48,    49,    19,    11,    74,
-      45,    46,    47,    48,    49,     0,    75,    47,    48,    49,
-      15,    16,    17
+      43,    37,    50,    52,    53,    54,    21,    22,    12,    23,
+       1,     2,     3,    13,    21,    22,    18,    23,    38,    21,
+      22,    24,    40,    35,    39,    34,    55,    56,    57,    24,
+      51,    25,    59,    45,    46,    47,    48,    49,    26,    25,
+      21,    22,    76,    23,    19,    20,    26,    35,    41,    80,
+      81,    26,   -14,    42,    36,    24,    44,     1,     2,     3,
+      61,    62,    70,    71,    64,    25,     4,    65,    66,    67,
+      68,    69,    26,    60,   -14,    35,    72,    45,    46,    47,
+      48,    49,    77,    11,    63,    45,    46,    47,    48,    49,
+      78,     0,    73,    45,    46,    47,    48,    49,    79,    82,
+      74,    45,    46,    47,    48,    49,    83,    75,    47,    48,
+      49,    15,    16,    17
 };
 
 static const yytype_int8 yycheck[] =
 {
       28,     7,    30,    31,    32,    33,     3,     4,     0,     6,
-      14,    15,    16,    20,     3,     4,     6,     6,     6,     3,
-       4,    18,     6,    29,     7,     7,     3,     4,     5,    18,
-      19,    28,    35,    30,    31,    32,    33,    34,    35,    28,
-       3,     4,    70,     6,    35,    21,    35,    29,    26,    77,
-      78,    35,     7,     6,    36,    18,    36,    14,    15,    16,
-      38,    39,    36,    38,    42,    28,    23,    45,    46,    47,
-      48,    49,    35,    38,    29,    39,    30,    31,    32,    33,
-      34,    39,    38,    37,    30,    31,    32,    33,    34,    39,
-      37,    37,    30,    31,    32,    33,    34,    10,     4,    37,
-      30,    31,    32,    33,    34,    -1,    36,    32,    33,    34,
-       7,     8,     9
+      14,    15,    16,    20,     3,     4,     6,     6,    35,     3,
+       4,    18,     6,    29,    35,     7,     3,     4,     5,    18,
+      19,    28,     6,    30,    31,    32,    33,    34,    35,    28,
+       3,     4,    70,     6,    10,    11,    35,    29,    26,    77,
+      78,    35,     7,     7,    36,    18,    21,    14,    15,    16,
+      38,    39,    38,    36,    42,    28,    23,    45,    46,    47,
+      48,    49,    35,    37,    29,    29,    36,    30,    31,    32,
+      33,    34,    38,     4,    37,    30,    31,    32,    33,    34,
+      38,    -1,    37,    30,    31,    32,    33,    34,    39,    39,
+      37,    30,    31,    32,    33,    34,    39,    36,    32,    33,
+      34,     7,     8,     9
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -691,7 +689,7 @@ static const yytype_int8 yystos[] =
 {
        0,    14,    15,    16,    23,    41,    42,    43,    45,    46,
       48,    48,     0,    20,    49,    42,    42,    42,     6,    47,
-       6,     3,     4,     6,    18,    28,    35,    47,    50,    51,
+      47,     3,     4,     6,    18,    28,    35,    47,    50,    51,
       52,    53,    54,    55,     7,    29,    36,     7,    35,    35,
        6,    52,     7,    51,    21,    30,    31,    32,    33,    34,
       51,    19,    51,    51,    51,     3,     4,     5,    44,     6,
@@ -1182,168 +1180,158 @@ yyreduce:
 #line 62 "bison_code.y"
                                            {
 		
-		printf("This code is correct");
+		printf("This code is correct\n");
 		YYACCEPT;
 	}
-#line 1189 "bison_code.tab.c"
+#line 1187 "bison_code.tab.c"
     break;
 
-  case 4: /* Declarations_List: ConstDeclaration Declarations_List  */
-#line 72 "bison_code.y"
-                                            {printf("went through the consdec ");}
-#line 1195 "bison_code.tab.c"
-    break;
-
-  case 7: /* ConstDeclaration: KW_Const Type IDF SC_ASSIGN Const ';'  */
+  case 7: /* ConstDeclaration: KW_Const Type G_IDF SC_ASSIGN Const ';'  */
 #line 78 "bison_code.y"
-                                             {
-
-		if(search((yyvsp[-3].string)) == -1){
+                                               {
+		
+		/*
+		if(search($3) == -1){
 			if(strcmp(Current_const_valtype,Current_type)==0){
-				insert((yyvsp[-3].string),"idf", Current_type, true);
+				insert($3,"idf", Current_type, true);
 			}
 			else{
-				printf("incompatible type!");
-			}
+				printf("incompatible type!86\n "); /*works*/
+			/*}
 		}	
 		else{
-			printf("idf already declared in ");
-		}		
+			printf("idf already declared !90 \n");
+		} */
 	}
-#line 1214 "bison_code.tab.c"
+#line 1207 "bison_code.tab.c"
     break;
 
   case 8: /* Const: INT  */
-#line 95 "bison_code.y"
+#line 96 "bison_code.y"
            { 
-		strcpy(Current_const_valtype,"int");
+		free(Current_const_valtype);
+		Current_const_valtype=NULL;
+		Current_const_valtype = strdup("int");
 	}
-#line 1222 "bison_code.tab.c"
+#line 1217 "bison_code.tab.c"
     break;
 
   case 9: /* Const: FLOAT  */
-#line 98 "bison_code.y"
+#line 101 "bison_code.y"
               {
-		strcpy(Current_const_valtype,"float");
+		free(Current_const_valtype);
+		Current_const_valtype=NULL;
+		Current_const_valtype = strdup("float");
 	}
-#line 1230 "bison_code.tab.c"
+#line 1227 "bison_code.tab.c"
     break;
 
   case 10: /* Const: BOOL  */
-#line 101 "bison_code.y"
+#line 106 "bison_code.y"
              {
-		strcpy(Current_const_valtype,"boolean");
+		free(Current_const_valtype);
+		Current_const_valtype=NULL;
+		Current_const_valtype = strdup("boolean");
 	}
-#line 1238 "bison_code.tab.c"
+#line 1237 "bison_code.tab.c"
     break;
 
   case 11: /* VarInit: Type G_IDF SC_ASSIGN Const ';'  */
-#line 107 "bison_code.y"
+#line 114 "bison_code.y"
                                         {
 	
 		if(strcmp(Current_const_valtype,Current_type)!=0){
-				printf("incompatible type!");
+				printf("incompatible type!117\n");
 		}
 	}
-#line 1249 "bison_code.tab.c"
+#line 1248 "bison_code.tab.c"
     break;
 
   case 13: /* G_IDF: G_IDF ',' IDF  */
-#line 120 "bison_code.y"
+#line 127 "bison_code.y"
                      { 
-		if(isDeclaration && !isAssignment){
 			if(search((yyvsp[0].string))!=-1){
-				printf("idf already declared !");
+				printf("idf already declared !130\n");
 			}
 			else{
-			insert((yyvsp[0].string),"idf", Current_type, false);	
+				insert((yyvsp[0].string),"idf", Current_type, true);	
 			}
-		}else if(!isDeclaration && isAssignment){
-			if(search((yyvsp[0].string))==-1){
-				printf("idf NOT DECLARED !");
+			/*
+			if(search($3)==-1){
+				printf("idf NOT DECLARED !137\n");
 			}
-		}
+		}*/
 	}
-#line 1268 "bison_code.tab.c"
+#line 1266 "bison_code.tab.c"
     break;
 
   case 14: /* G_IDF: IDF  */
-#line 134 "bison_code.y"
+#line 140 "bison_code.y"
              { 
-		if(isDeclaration && !isAssignment){
 			if(search((yyvsp[0].string))!=-1){
-				printf("idf already declared !");
+				printf("idf already declared !144\n");
 			}
 			else{
-				insert((yyvsp[0].string),"idf", Current_type, false);	
+				insert((yyvsp[0].string),"idf", Current_type, true);	
 			}
-		}else if(!isDeclaration && isAssignment){
-			if(search((yyvsp[0].string))==-1){
-				printf("idf NOT DECLARED !");
+			/*
+			if(search($1)==-1){
+				printf("idf NOT DECLARED !151\n");
 			}
-		}
+		}*/
 	}
-#line 1287 "bison_code.tab.c"
+#line 1284 "bison_code.tab.c"
     break;
 
   case 15: /* Type: KW_int  */
-#line 153 "bison_code.y"
+#line 158 "bison_code.y"
               { 
 		free(Current_type);
 		Current_type=NULL;
 		Current_type = strdup("int");
 	}
-#line 1297 "bison_code.tab.c"
+#line 1294 "bison_code.tab.c"
     break;
 
   case 16: /* Type: KW_float  */
-#line 158 "bison_code.y"
+#line 163 "bison_code.y"
                  { 
 		free(Current_type);
 		Current_type=NULL;
 		Current_type = strdup("float");
 	}
-#line 1307 "bison_code.tab.c"
+#line 1304 "bison_code.tab.c"
     break;
 
   case 17: /* Type: KW_boolean  */
-#line 163 "bison_code.y"
+#line 168 "bison_code.y"
                    { 
 		free(Current_type);
 		Current_type=NULL;
 		Current_type = strdup("boolean");
 	}
-#line 1317 "bison_code.tab.c"
-    break;
-
-  case 19: /* Instructions_List: KW_BEGIN stmt KW_END  */
-#line 172 "bison_code.y"
-                               {
-			isDeclaration = true ;
-			isAssignment = false ;
-	}
-#line 1326 "bison_code.tab.c"
+#line 1314 "bison_code.tab.c"
     break;
 
   case 20: /* Assignment: G_IDF SC_ASSIGN exprA ';'  */
-#line 180 "bison_code.y"
+#line 182 "bison_code.y"
                                   {
    	 	}
-#line 1333 "bison_code.tab.c"
+#line 1321 "bison_code.tab.c"
     break;
 
   case 29: /* exprA: IDF  */
-#line 197 "bison_code.y"
+#line 199 "bison_code.y"
              {
 		if(search((yyvsp[0].string))==-1){
-			printf("idf NOT DECLARED !");
+			printf("idf NOT DECLARED ! 206");
 		}
 	}
-#line 1343 "bison_code.tab.c"
+#line 1331 "bison_code.tab.c"
     break;
 
 
-#line 1347 "bison_code.tab.c"
+#line 1335 "bison_code.tab.c"
 
       default: break;
     }
@@ -1536,7 +1524,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 223 "bison_code.y"
+#line 225 "bison_code.y"
 
 
 		/*C code*/

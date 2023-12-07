@@ -7,8 +7,6 @@
 #include "../inc/sym_tab.h" 
 
 extern int line_counter;
-extern bool isAssignment;
-extern bool isDeclaration;
 extern char* Current_type;
 extern char* Current_const_valtype;
 void yyerror();
@@ -17,11 +15,12 @@ int yylex();
 %}
 
 		/* Yacc definitions*/
-%union{int integerV;
+%union{
+	int   boolV;
+	int   integerV;
 	float floatV;
-	char* boolV;
-	char* specialChar;
 	char* string;
+	char* specialChar;
 	
 }
 
@@ -59,9 +58,10 @@ int yylex();
 		/*grammar*/
 
 Programme: 
+	
 	Declarations_List Instructions_List{
 		
-		printf("This code is correct");
+		printf("This code is correct\n");
 		YYACCEPT;
 	}
 ;
@@ -69,37 +69,44 @@ Programme:
 		/*handling declarations*/
 Declarations_List:
 	%empty 
-	|ConstDeclaration Declarations_List {printf("went through the consdec ");}
+	|ConstDeclaration Declarations_List 
 	|VarDeclaration Declarations_List
 	|VarInit Declarations_List	
 ;
 
 ConstDeclaration :
-	KW_Const Type IDF SC_ASSIGN Const ';'{
-
+	KW_Const Type G_IDF SC_ASSIGN Const ';'{
+		
+		/*
 		if(search($3) == -1){
 			if(strcmp(Current_const_valtype,Current_type)==0){
 				insert($3,"idf", Current_type, true);
 			}
 			else{
-				printf("incompatible type!");
-			}
+				printf("incompatible type!86\n "); /*works*/
+			/*}
 		}	
 		else{
-			printf("idf already declared in ");
-		}		
+			printf("idf already declared !90 \n");
+		} */
 	}
 ;
 
 Const:
 	INT{ 
-		strcpy(Current_const_valtype,"int");
+		free(Current_const_valtype);
+		Current_const_valtype=NULL;
+		Current_const_valtype = strdup("int");
 	}
 	|FLOAT{
-		strcpy(Current_const_valtype,"float");
+		free(Current_const_valtype);
+		Current_const_valtype=NULL;
+		Current_const_valtype = strdup("float");
 	}
 	|BOOL{
-		strcpy(Current_const_valtype,"boolean");
+		free(Current_const_valtype);
+		Current_const_valtype=NULL;
+		Current_const_valtype = strdup("boolean");
 	}
 ;
 
@@ -107,7 +114,7 @@ VarInit:
 	Type  G_IDF SC_ASSIGN Const ';' {
 	
 		if(strcmp(Current_const_valtype,Current_type)!=0){
-				printf("incompatible type!");
+				printf("incompatible type!117\n");
 		}
 	}				
 ;
@@ -118,32 +125,30 @@ VarDeclaration :
 
 G_IDF:
 	G_IDF ',' IDF{ 
-		if(isDeclaration && !isAssignment){
 			if(search($3)!=-1){
-				printf("idf already declared !");
+				printf("idf already declared !130\n");
 			}
 			else{
-			insert($3,"idf", Current_type, false);	
+				insert($3,"idf", Current_type, true);	
 			}
-		}else if(!isDeclaration && isAssignment){
+			/*
 			if(search($3)==-1){
-				printf("idf NOT DECLARED !");
+				printf("idf NOT DECLARED !137\n");
 			}
-		}
+		}*/
 	}
 	|IDF { 
-		if(isDeclaration && !isAssignment){
 			if(search($1)!=-1){
-				printf("idf already declared !");
+				printf("idf already declared !144\n");
 			}
 			else{
-				insert($1,"idf", Current_type, false);	
+				insert($1,"idf", Current_type, true);	
 			}
-		}else if(!isDeclaration && isAssignment){
+			/*
 			if(search($1)==-1){
-				printf("idf NOT DECLARED !");
+				printf("idf NOT DECLARED !151\n");
 			}
-		}
+		}*/
 	}
 	
 	
@@ -169,10 +174,7 @@ Type:
 
 Instructions_List:
 	%empty
-	|KW_BEGIN stmt KW_END  {
-			isDeclaration = true ;
-			isAssignment = false ;
-	}
+	|KW_BEGIN stmt KW_END  
 ;
 
 
@@ -196,7 +198,7 @@ exprA:
 	|FLOAT
 	|IDF {
 		if(search($1)==-1){
-			printf("idf NOT DECLARED !");
+			printf("idf NOT DECLARED ! 206");
 		}
 	}
 	|'(' exprA ')'
