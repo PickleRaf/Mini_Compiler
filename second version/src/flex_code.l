@@ -1,7 +1,7 @@
 %{
 #include "../inc/bison_code.tab.h"
 #include "../inc/sym_tab.h"
-int line_counter = 1 ;
+int line_counter = 0 ;
 int colomn_counter = 0 ;
 extern YYSTYPE yylval;
 
@@ -35,7 +35,7 @@ comment		"{"[^{}]*"}"
 {integre}	{ yylval.integerV=atoi(yytext); return(INT); }
 {float_value}	{ yylval.floatV=atof(yytext); return(FLOAT); }
 {boolean_value}	{if(strcmp("true", yytext)){yylval.boolV=1;}else{yylval.boolV=0; return BOOL;}}
-{identif}	{ if(yyleng > 12){ printf("(%s) IDF too long\n", yytext); exit(1);} 	else{ yylval.string = strdup(yytext); return IDF;} }
+{identif}	{ if(yyleng > 12){ printf("(%s) IDF too long\n", yytext); exit(1);} 	else{ yylval.string = strdup(yytext); insert(yytext, "idf"); return IDF;} }
 		
 [-+*/%<>!,;()]		return yytext[0];
 ":="			return(SC_ASSIGN);

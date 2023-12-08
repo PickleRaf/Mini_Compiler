@@ -5,7 +5,7 @@
 #include "../inc/sym_tab.h"
 
 int stnCounter = 0;
-char* Current_type;
+char* Current_type=NULL;
 char* Current_const_valtype;
 STN* List_head = NULL;
 STN* List_tail = NULL;
@@ -42,7 +42,7 @@ Q = Q->NextNode;
 return -1;
 }
 
-void insert(char* entityName, char* entityCode, char* entityType, bool constant)
+void insert(char* entityName, char* entityCode/*, char* entityType, bool constant*/)
 {
 	if ( search(entityName)==-1)
 	{
@@ -50,13 +50,13 @@ void insert(char* entityName, char* entityCode, char* entityType, bool constant)
 		STN* newNode = (STN*)malloc(sizeof(STN));
 
 		if(newNode == NULL ) {
-			printf("memory allocation failed!");
+			printf("memory allocation failed!\n");
 		}
 
 		newNode->EntityName = entityName; 
 		newNode->EntityCode= entityCode;
-		newNode->EntityType = entityType;
-		newNode->Constant = constant;
+		newNode->EntityType = NULL;
+		newNode->Constant = false;
 		stnCounter++;
 		newNode->LineNumber = stnCounter;
        
@@ -71,15 +71,81 @@ void insert(char* entityName, char* entityCode, char* entityType, bool constant)
 		}
 	}
 	else{
-		printf("idf already exists !");
+		printf("idf already exists !\n");
 	}
+}
+
+void insertEntityType(char* entityName, char* entityType)
+{
+	int lineNumber = search(entityName);
+	
+	if(lineNumber == -1){
+		
+		printf("error IDF doesn't exist\n");
+	}
+	else{
+		STN* Q = List_head;
+		while(Q != NULL )
+		{
+			if ( Q->LineNumber == lineNumber){
+				Q->EntityType = entityType;
+			}
+			else{
+				Q = Q->NextNode;
+			}
+		}
+	}
+}
+
+void isConst(char* entityName)
+{
+	int lineNumber = search(entityName);
+	
+	if(lineNumber == -1){
+		
+		printf("error IDF doesn't exist\n");
+	}
+	else{
+		STN* Q = List_head;
+		while(Q != NULL )
+		{
+			if ( Q->LineNumber == lineNumber){
+				Q->Constant = true;
+			}
+			else{
+				Q = Q->NextNode;
+			}
+		}
+	}
+}
+
+int doubleDeclaration(char* idf)
+{
+	STN* Q = List_head;
+	while(Q != NULL )
+	{
+		if ( Q->EntityName == idf){
+			if(Q->EntityType != NULL){
+				return 1;
+			}
+			else{
+				return 0;
+			}
+		}
+		else{
+			Q = Q->NextNode;
+		}
+	}
+	
+	return -1;
+
 }
 
 void print_STN ()
 {
 printf("\n/*******************Symboles Table *************************/\n");
 printf("__________________________________________________________________\n");
-printf("\t| EntityName | EntityCode | EntityType | Constant | LineNumber |\n");
+printf("\t| EntityName | EntityCode | EntityType | Constant | LineNumber(symtab) |\n");
 printf("__________________________________________________________________\n");
 
 int i=0;
@@ -96,7 +162,7 @@ STN* Q = List_head;
 
 int count_nl(char *comment, size_t comment_len)
 {
-    int counter = 0;
+    int counter = 1;
 
     for(int i = 0; i < comment_len; i++){
         if(comment[i] == '\n')

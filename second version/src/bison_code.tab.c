@@ -555,10 +555,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    62,    62,    71,    72,    73,    74,    78,    96,   101,
-     106,   114,   123,   127,   140,   158,   163,   168,   176,   177,
-     182,   188,   189,   190,   191,   192,   193,   197,   198,   199,
-     204,   205,   206,   207,   208,   209,   214,   218,   222
+       0,    67,    67,    76,    77,    78,    79,    83,    92,    96,
+     100,   107,   116,   120,   130,   145,   154,   162,   173,   174,
+     179,   185,   186,   187,   188,   189,   190,   194,   195,   196,
+     201,   202,   203,   204,   205,   206,   211,   215,   219
 };
 #endif
 
@@ -1177,7 +1177,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* Programme: Declarations_List Instructions_List  */
-#line 62 "bison_code.y"
+#line 67 "bison_code.y"
                                            {
 		
 		printf("This code is correct\n");
@@ -1187,151 +1187,142 @@ yyreduce:
     break;
 
   case 7: /* ConstDeclaration: KW_Const Type G_IDF SC_ASSIGN Const ';'  */
-#line 78 "bison_code.y"
-                                               {
-		
-		/*
-		if(search($3) == -1){
-			if(strcmp(Current_const_valtype,Current_type)==0){
-				insert($3,"idf", Current_type, true);
-			}
-			else{
-				printf("incompatible type!86\n "); /*works*/
-			/*}
-		}	
-		else{
-			printf("idf already declared !90 \n");
-		} */
+#line 83 "bison_code.y"
+                                                {
+		if(strcmp((yyvsp[-4].string),(yyvsp[-1].string))!=0){
+			printf("semantic error: incompatible type , in line %d\n",line_counter);
+		}
+		isConst((yyvsp[-3].string));
+	}
+#line 1198 "bison_code.tab.c"
+    break;
+
+  case 8: /* Const: INT  */
+#line 92 "bison_code.y"
+           { 	
+		(yyval.string) ="int";
+
 	}
 #line 1207 "bison_code.tab.c"
     break;
 
-  case 8: /* Const: INT  */
-#line 96 "bison_code.y"
-           { 
-		free(Current_const_valtype);
-		Current_const_valtype=NULL;
-		Current_const_valtype = strdup("int");
-	}
-#line 1217 "bison_code.tab.c"
-    break;
-
   case 9: /* Const: FLOAT  */
-#line 101 "bison_code.y"
+#line 96 "bison_code.y"
               {
-		free(Current_const_valtype);
-		Current_const_valtype=NULL;
-		Current_const_valtype = strdup("float");
+		(yyval.string)="float";
+
 	}
-#line 1227 "bison_code.tab.c"
+#line 1216 "bison_code.tab.c"
     break;
 
   case 10: /* Const: BOOL  */
-#line 106 "bison_code.y"
-             {
-		free(Current_const_valtype);
-		Current_const_valtype=NULL;
-		Current_const_valtype = strdup("boolean");
+#line 100 "bison_code.y"
+             {	
+		(yyval.string)="boolean";
+
 	}
-#line 1237 "bison_code.tab.c"
+#line 1225 "bison_code.tab.c"
     break;
 
   case 11: /* VarInit: Type G_IDF SC_ASSIGN Const ';'  */
-#line 114 "bison_code.y"
+#line 107 "bison_code.y"
                                         {
-	
-		if(strcmp(Current_const_valtype,Current_type)!=0){
-				printf("incompatible type!117\n");
+		
+		if(strcmp((yyvsp[-4].string),(yyvsp[-1].string))!=0){
+			printf("semantic error: incompatible type , in line %d\n",line_counter);
 		}
 	}
-#line 1248 "bison_code.tab.c"
+#line 1236 "bison_code.tab.c"
     break;
 
   case 13: /* G_IDF: G_IDF ',' IDF  */
-#line 127 "bison_code.y"
+#line 120 "bison_code.y"
                      { 
-			if(search((yyvsp[0].string))!=-1){
-				printf("idf already declared !130\n");
-			}
-			else{
-				insert((yyvsp[0].string),"idf", Current_type, true);	
-			}
-			/*
-			if(search($3)==-1){
-				printf("idf NOT DECLARED !137\n");
-			}
-		}*/
+		
+		if(doubleDeclaration((yyvsp[0].string))==0){
+			insertEntityType((yyvsp[0].string),Current_type );
+		}
+		else{
+			printf("semantic error: double declaration of %s, in line %d\n",(yyvsp[0].string),line_counter);
+		}	
+
 	}
-#line 1266 "bison_code.tab.c"
+#line 1251 "bison_code.tab.c"
     break;
 
   case 14: /* G_IDF: IDF  */
-#line 140 "bison_code.y"
-             { 
-			if(search((yyvsp[0].string))!=-1){
-				printf("idf already declared !144\n");
-			}
-			else{
-				insert((yyvsp[0].string),"idf", Current_type, true);	
-			}
-			/*
-			if(search($1)==-1){
-				printf("idf NOT DECLARED !151\n");
-			}
-		}*/
+#line 130 "bison_code.y"
+             { 	
+		
+		if(doubleDeclaration((yyvsp[0].string))==0){
+			insertEntityType((yyvsp[0].string),Current_type );
+		}
+		else{
+			printf("semantic error: double declaration of %s, in line %d\n",(yyvsp[0].string),line_counter);
+		}
 	}
-#line 1284 "bison_code.tab.c"
+#line 1265 "bison_code.tab.c"
     break;
 
   case 15: /* Type: KW_int  */
-#line 158 "bison_code.y"
+#line 145 "bison_code.y"
               { 
-		free(Current_type);
-		Current_type=NULL;
-		Current_type = strdup("int");
+		(yyval.string) ="int";
+		if(Current_type!=NULL){
+			free(Current_type);
+			Current_type=NULL;
+		}
+		Current_type=strdup("int");
+
 	}
-#line 1294 "bison_code.tab.c"
+#line 1279 "bison_code.tab.c"
     break;
 
   case 16: /* Type: KW_float  */
-#line 163 "bison_code.y"
+#line 154 "bison_code.y"
                  { 
-		free(Current_type);
-		Current_type=NULL;
-		Current_type = strdup("float");
+		(yyval.string) ="float";
+		if(Current_type!=NULL){
+			free(Current_type);
+			Current_type=NULL;
+		}
+		Current_type=strdup("float");
 	}
-#line 1304 "bison_code.tab.c"
+#line 1292 "bison_code.tab.c"
     break;
 
   case 17: /* Type: KW_boolean  */
-#line 168 "bison_code.y"
+#line 162 "bison_code.y"
                    { 
-		free(Current_type);
-		Current_type=NULL;
-		Current_type = strdup("boolean");
+		(yyval.string) ="boolean";
+		if(Current_type!=NULL){
+			free(Current_type);
+			Current_type=NULL;
+		}
+		Current_type=strdup("boolean");
 	}
-#line 1314 "bison_code.tab.c"
+#line 1305 "bison_code.tab.c"
     break;
 
   case 20: /* Assignment: G_IDF SC_ASSIGN exprA ';'  */
-#line 182 "bison_code.y"
+#line 179 "bison_code.y"
                                   {
    	 	}
-#line 1321 "bison_code.tab.c"
+#line 1312 "bison_code.tab.c"
     break;
 
   case 29: /* exprA: IDF  */
-#line 199 "bison_code.y"
+#line 196 "bison_code.y"
              {
 		if(search((yyvsp[0].string))==-1){
-			printf("idf NOT DECLARED ! 206");
+			printf("idf NOT DECLARED ! 206 line:%d\n ",line_counter);
 		}
 	}
-#line 1331 "bison_code.tab.c"
+#line 1322 "bison_code.tab.c"
     break;
 
 
-#line 1335 "bison_code.tab.c"
+#line 1326 "bison_code.tab.c"
 
       default: break;
     }
@@ -1524,11 +1515,11 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 225 "bison_code.y"
+#line 222 "bison_code.y"
 
 
 		/*C code*/
 		void yyerror(char const *s){
-			fprintf(stderr,"%s\n", s);
+			fprintf(stderr,"%s line:%d\n", s,line_counter);
 		}
 

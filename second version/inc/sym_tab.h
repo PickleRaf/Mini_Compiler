@@ -19,9 +19,15 @@ typedef struct Symbole_Table_Node{
 
 void Sym_Tab_Destroy();
 
-int search(char entityName[]);
+int search(char* entityName);
 
-void insert(char entityName[], char entityCode[], char entityType[], bool constant);
+int doubleDeclaration(char* idf);
+
+void insert(char* entityName, char* entityCode);
+
+void insertEntityType(char* entityName, char* entityType);
+
+void isConst(char* entityName);
 
 void print_STN ();
 

@@ -561,7 +561,7 @@ char *yytext;
 #line 2 "flex_code.l"
 #include "../inc/bison_code.tab.h"
 #include "../inc/sym_tab.h"
-int line_counter = 1 ;
+int line_counter = 0 ;
 int colomn_counter = 0 ;
 extern YYSTYPE yylval;
 
@@ -920,7 +920,7 @@ YY_RULE_SETUP
 case 16:
 YY_RULE_SETUP
 #line 38 "flex_code.l"
-{ if(yyleng > 12){ printf("(%s) IDF too long\n", yytext); exit(1);} 	else{ yylval.string = strdup(yytext); return IDF;} }
+{ if(yyleng > 12){ printf("(%s) IDF too long\n", yytext); exit(1);} 	else{ yylval.string = strdup(yytext); insert(yytext, "idf"); return IDF;} }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP

@@ -48,6 +48,11 @@ int yylex();
 %type <floatV>		FLOAT
 %type <boolV>		BOOL
 
+%type <string>		G_IDF
+%type <string> 		KW_Const
+%type <string>		Const
+%type <string> 		Type
+
 %left ','
 %left SC_EQUALS SC_DIFF 
 %left '+' '-'
@@ -75,46 +80,34 @@ Declarations_List:
 ;
 
 ConstDeclaration :
-	KW_Const Type G_IDF SC_ASSIGN Const ';'{
-		
-		/*
-		if(search($3) == -1){
-			if(strcmp(Current_const_valtype,Current_type)==0){
-				insert($3,"idf", Current_type, true);
-			}
-			else{
-				printf("incompatible type!86\n "); /*works*/
-			/*}
-		}	
-		else{
-			printf("idf already declared !90 \n");
-		} */
+	KW_Const  Type G_IDF SC_ASSIGN Const ';'{
+		if(strcmp($2,$5)!=0){
+			printf("semantic error: incompatible type , in line %d\n",line_counter);
+		}
+		isConst($3);
 	}
 ;
 
 Const:
-	INT{ 
-		free(Current_const_valtype);
-		Current_const_valtype=NULL;
-		Current_const_valtype = strdup("int");
+	INT{ 	
+		$$ ="int";
+
 	}
 	|FLOAT{
-		free(Current_const_valtype);
-		Current_const_valtype=NULL;
-		Current_const_valtype = strdup("float");
+		$$="float";
+
 	}
-	|BOOL{
-		free(Current_const_valtype);
-		Current_const_valtype=NULL;
-		Current_const_valtype = strdup("boolean");
+	|BOOL{	
+		$$="boolean";
+
 	}
 ;
 
 VarInit:
 	Type  G_IDF SC_ASSIGN Const ';' {
-	
-		if(strcmp(Current_const_valtype,Current_type)!=0){
-				printf("incompatible type!117\n");
+		
+		if(strcmp($1,$4)!=0){
+			printf("semantic error: incompatible type , in line %d\n",line_counter);
 		}
 	}				
 ;
@@ -125,50 +118,54 @@ VarDeclaration :
 
 G_IDF:
 	G_IDF ',' IDF{ 
-			if(search($3)!=-1){
-				printf("idf already declared !130\n");
-			}
-			else{
-				insert($3,"idf", Current_type, true);	
-			}
-			/*
-			if(search($3)==-1){
-				printf("idf NOT DECLARED !137\n");
-			}
-		}*/
+		
+		if(doubleDeclaration($3)==0){
+			insertEntityType($3,Current_type );
+		}
+		else{
+			printf("semantic error: double declaration of %s, in line %d\n",$3,line_counter);
+		}	
+
 	}
-	|IDF { 
-			if(search($1)!=-1){
-				printf("idf already declared !144\n");
-			}
-			else{
-				insert($1,"idf", Current_type, true);	
-			}
-			/*
-			if(search($1)==-1){
-				printf("idf NOT DECLARED !151\n");
-			}
-		}*/
-	}
+	|IDF { 	
+		
+		if(doubleDeclaration($1)==0){
+			insertEntityType($1,Current_type );
+		}
+		else{
+			printf("semantic error: double declaration of %s, in line %d\n",$1,line_counter);
+		}
+	}	
+
 	
 	
 ;
 
 Type:
 	KW_int{ 
-		free(Current_type);
-		Current_type=NULL;
-		Current_type = strdup("int");
+		$$ ="int";
+		if(Current_type!=NULL){
+			free(Current_type);
+			Current_type=NULL;
+		}
+		Current_type=strdup("int");
+
 	}
 	|KW_float{ 
-		free(Current_type);
-		Current_type=NULL;
-		Current_type = strdup("float");
+		$$ ="float";
+		if(Current_type!=NULL){
+			free(Current_type);
+			Current_type=NULL;
+		}
+		Current_type=strdup("float");
 	}
 	|KW_boolean{ 
-		free(Current_type);
-		Current_type=NULL;
-		Current_type = strdup("boolean");
+		$$ ="boolean";
+		if(Current_type!=NULL){
+			free(Current_type);
+			Current_type=NULL;
+		}
+		Current_type=strdup("boolean");
 	}
 ;
 
@@ -198,7 +195,7 @@ exprA:
 	|FLOAT
 	|IDF {
 		if(search($1)==-1){
-			printf("idf NOT DECLARED ! 206");
+			printf("idf NOT DECLARED ! 206 line:%d\n ",line_counter);
 		}
 	}
 	|'(' exprA ')'
@@ -226,6 +223,6 @@ While_insruction :
 
 		/*C code*/
 		void yyerror(char const *s){
-			fprintf(stderr,"%s\n", s);
+			fprintf(stderr,"%s line:%d\n", s,line_counter);
 		}
 
