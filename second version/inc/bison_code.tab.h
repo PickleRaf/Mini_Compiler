@@ -63,23 +63,24 @@ extern int yydebug;
     SC_DIFF = 264,                 /* SC_DIFF  */
     SC_LOE = 265,                  /* SC_LOE  */
     SC_GOE = 266,                  /* SC_GOE  */
-    SC_INCR = 267,                 /* SC_INCR  */
-    SC_DECR = 268,                 /* SC_DECR  */
-    KW_int = 269,                  /* KW_int  */
-    KW_float = 270,                /* KW_float  */
-    KW_boolean = 271,              /* KW_boolean  */
-    KW_For = 272,                  /* KW_For  */
-    KW_If = 273,                   /* KW_If  */
-    KW_Else = 274,                 /* KW_Else  */
-    KW_BEGIN = 275,                /* KW_BEGIN  */
-    KW_END = 276,                  /* KW_END  */
-    KW_Return = 277,               /* KW_Return  */
-    KW_Const = 278,                /* KW_Const  */
-    KW_Void = 279,                 /* KW_Void  */
-    KW_Pc = 280,                   /* KW_Pc  */
-    KW_Fc = 281,                   /* KW_Fc  */
-    KW_Function = 282,             /* KW_Function  */
-    KW_While = 283                 /* KW_While  */
+    SC_AND = 267,                  /* SC_AND  */
+    SC_OR = 268,                   /* SC_OR  */
+    SC_INCR = 269,                 /* SC_INCR  */
+    SC_DECR = 270,                 /* SC_DECR  */
+    KW_int = 271,                  /* KW_int  */
+    KW_float = 272,                /* KW_float  */
+    KW_boolean = 273,              /* KW_boolean  */
+    KW_While = 274,                /* KW_While  */
+    KW_If = 275,                   /* KW_If  */
+    KW_Else = 276,                 /* KW_Else  */
+    KW_BEGIN = 277,                /* KW_BEGIN  */
+    KW_END = 278,                  /* KW_END  */
+    KW_Return = 279,               /* KW_Return  */
+    KW_Const = 280,                /* KW_Const  */
+    KW_Void = 281,                 /* KW_Void  */
+    KW_Pc = 282,                   /* KW_Pc  */
+    KW_Fc = 283,                   /* KW_Fc  */
+    KW_Function = 284              /* KW_Function  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -97,7 +98,7 @@ union YYSTYPE
 	char* specialChar;
 	
 
-#line 101 "bison_code.tab.h"
+#line 102 "bison_code.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

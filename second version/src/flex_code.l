@@ -1,8 +1,7 @@
 %{
 #include "../inc/bison_code.tab.h"
 #include "../inc/sym_tab.h"
-int line_counter = 0 ;
-int colomn_counter = 0 ;
+int line_counter = 1;
 extern YYSTYPE yylval;
 
 %}
@@ -24,7 +23,7 @@ comment		"{"[^{}]*"}"
 "boolean"	return(KW_boolean);
 "BEGIN"		return(KW_BEGIN);
 "END"		return(KW_END);
-"For"		return(KW_For);
+"While"		return(KW_While);
 "If"		return(KW_If);
 "else"		return(KW_Else);
 "Const"		return(KW_Const);
@@ -43,6 +42,8 @@ comment		"{"[^{}]*"}"
 "<>"			return(SC_DIFF);
 "<="			return(SC_LOE);
 ">="			return(SC_GOE);
+"&&"			return(SC_AND);
+"||"			return(SC_OR);
 "++"			return(SC_INCR);
 "--"			return(SC_DECR);
 

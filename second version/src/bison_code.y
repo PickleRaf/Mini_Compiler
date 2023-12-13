@@ -27,36 +27,28 @@ int yylex();
 %start 	Programme
 
 %token	INT FLOAT BOOL IDF 
-%token	SC_ASSIGN SC_EQUALS SC_DIFF SC_LOE SC_GOE  SC_INCR SC_DECR
-%token	KW_int KW_float KW_boolean KW_For KW_If KW_Else KW_BEGIN KW_END KW_Return KW_Const KW_Void KW_Pc KW_Fc KW_Function KW_While
+%token	SC_ASSIGN SC_EQUALS SC_DIFF SC_LOE SC_GOE SC_AND SC_OR SC_INCR SC_DECR
+%token	KW_int KW_float KW_boolean KW_While KW_If KW_Else KW_BEGIN KW_END KW_Return KW_Const KW_Void KW_Pc KW_Fc KW_Function
 
-%type <specialChar>	SC_ASSIGN
-%type <specialChar>	SC_EQUALS
-%type <specialChar>	SC_DIFF
-%type <specialChar>	SC_LOE
-%type <specialChar>	SC_GOE
-%type <string> 		KW_BEGIN
-%type <string> 		KW_END
-%type <string> 		KW_int
-%type <string> 		KW_float
-%type <string> 		KW_boolean
-%type <string> 		KW_For
-%type <string> 		KW_If
-%type <string> 		KW_Else
+
 %type <string> 		IDF
 %type <integer>		INT
 %type <floatV>		FLOAT
 %type <boolV>		BOOL
+%type <string> 		KW_Const
 
 %type <string>		G_IDF
-%type <string> 		KW_Const
 %type <string>		Const
 %type <string> 		Type
 
 %left ','
+%left SC_OR
+%left SC_AND
 %left SC_EQUALS SC_DIFF 
+%left SC_LOE SC_GOE  '<' '>'
 %left '+' '-'
 %left '*' '/' '%'
+%left '!'
 %left '('
 
 %%
@@ -207,8 +199,31 @@ exprA:
 	
 ;
 
+exprR:
+	exprA
+	|exprR SC_EQUALS exprR
+	|exprR SC_DIFF exprR
+	|exprR SC_LOE exprR
+	|exprR SC_GOE exprR
+	|exprR '<' exprR
+	|exprR '>' exprR
+;
+
+exprL:
+	exprR
+	|'!'exprL
+	|exprL SC_AND exprL
+	|exprL SC_OR exprL
+;
+
+Condition :
+	"true"
+	|"false"
+	|exprL
+;
+
 If_instruction :
-	KW_If '(' exprA')' '{' stmt  '}'
+	KW_If '(' Condition')' '{' stmt  '}'
 ;
 
 IfElse_instruction :
@@ -216,7 +231,7 @@ IfElse_instruction :
 ;
 
 While_insruction :
-		KW_While '(' exprA')' '{' stmt '}'
+		KW_While '('Condition')' '{' stmt '}'
 ;
 
 %%

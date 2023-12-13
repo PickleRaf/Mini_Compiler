@@ -14,14 +14,15 @@ void Sym_Tab_Destroy(){
     STN* Q1 = List_head;
     STN* Q2 = NULL;
     while(Q1 != NULL){
-        free(Q1->EntityName);
+        
+		free(Q1->EntityName);
         Q1-> EntityName = NULL;
       
         free(Q1->EntityCode);
         Q1-> EntityCode = NULL;
         
         free(Q1->EntityType);
-        Q1->EntityCode = NULL;
+        Q1->EntityType = NULL;
         
         Q2 = Q1 ;
         Q1= Q1->NextNode;
@@ -53,8 +54,8 @@ void insert(char* entityName, char* entityCode/*, char* entityType, bool constan
 			printf("memory allocation failed!\n");
 		}
 
-		newNode->EntityName = entityName; 
-		newNode->EntityCode= entityCode;
+		newNode->EntityName = strdup(entityName); //error1
+		newNode->EntityCode= strdup(entityCode);//error2
 		newNode->EntityType = NULL;
 		newNode->Constant = false;
 		stnCounter++;
@@ -71,7 +72,7 @@ void insert(char* entityName, char* entityCode/*, char* entityType, bool constan
 		}
 	}
 	else{
-		printf("idf already exists !\n");
+		printf("idf already exists ! 75st\n");
 	}
 }
 
@@ -81,18 +82,16 @@ void insertEntityType(char* entityName, char* entityType)
 	
 	if(lineNumber == -1){
 		
-		printf("error IDF doesn't exist\n");
+		printf("error IDF doesn't exist  85 st\n");
 	}
 	else{
 		STN* Q = List_head;
 		while(Q != NULL )
 		{
 			if ( Q->LineNumber == lineNumber){
-				Q->EntityType = entityType;
+				Q->EntityType = strdup(entityType);
 			}
-			else{
-				Q = Q->NextNode;
-			}
+			Q = Q->NextNode;
 		}
 	}
 }
@@ -103,7 +102,7 @@ void isConst(char* entityName)
 	
 	if(lineNumber == -1){
 		
-		printf("error IDF doesn't exist\n");
+		printf("error IDF doesn't exist ! 105 st\n");
 	}
 	else{
 		STN* Q = List_head;
@@ -112,9 +111,9 @@ void isConst(char* entityName)
 			if ( Q->LineNumber == lineNumber){
 				Q->Constant = true;
 			}
-			else{
-				Q = Q->NextNode;
-			}
+			
+			Q = Q->NextNode;
+			
 		}
 	}
 }
@@ -124,7 +123,7 @@ int doubleDeclaration(char* idf)
 	STN* Q = List_head;
 	while(Q != NULL )
 	{
-		if ( Q->EntityName == idf){
+		if ( strcmp(Q->EntityName,idf)==0){/*strcmp(Q->EntityName,idf)==0*/
 			if(Q->EntityType != NULL){
 				return 1;
 			}
@@ -162,7 +161,7 @@ STN* Q = List_head;
 
 int count_nl(char *comment, size_t comment_len)
 {
-    int counter = 1;
+    int counter = 0;
 
     for(int i = 0; i < comment_len; i++){
         if(comment[i] == '\n')
