@@ -1,5 +1,4 @@
 { double const declaration }
-Const int jamal,kamal,p5,p2 := 0.2;
 
 {
 Const int x := 5;
@@ -11,6 +10,7 @@ Const boolean z := false;}
 
 
 
+Const int jamal,kamal,p5,p2 := 0.2;
 
 
 
@@ -24,34 +24,27 @@ boolean zz ;
 float x1,x1;
 
 
-
-
-
-
-
 { double VarInit declaration }
 int xx := 5;
 float yy := 0.98;
-boolean zz := false;
 int xx,h := 6;
 float yy := 256;
 int xx1,xx1 := 10;
 
-
-
-
-
-
 { incompatible types const }
 Const int i  := 70.5;
-Cosnt float j: = false;
 Const boolean k := 50; 
 {incompatible types varinit }
 int ii := 8.4523;
-float jj := true;
 boolean kk := 15.3;
 
+
+
+{
+Const float j := false;
+float jj := true;
+boolean zz := false; }
 BEGIN
 
-
+mama := 10;
 END

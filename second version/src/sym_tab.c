@@ -71,9 +71,7 @@ void insert(char* entityName, char* entityCode/*, char* entityType, bool constan
 			List_tail = newNode;
 		}
 	}
-	else{
-		printf("idf already exists ! 75st\n");
-	}
+
 }
 
 void insertEntityType(char* entityName, char* entityType)
@@ -143,15 +141,15 @@ int doubleDeclaration(char* idf)
 void print_STN ()
 {
 printf("\n/*******************Symboles Table *************************/\n");
-printf("__________________________________________________________________\n");
-printf("\t| EntityName | EntityCode | EntityType | Constant | LineNumber(symtab) |\n");
-printf("__________________________________________________________________\n");
+printf("____________________________________________________________________________\n");
+printf("\t|  EntityName | EntityCode  | EntityType | Constant | LineNumber(symtab) |\n");
+printf("____________________________________________________________________________\n");
 
 int i=0;
 STN* Q = List_head;
  while(i < stnCounter)
  {
- 	printf("\t|%12s |%15s |%10s |%5s | %d \n",
+ 	printf("\t|%12s |%12s |%11s |%11s | %d \n",
  		Q->EntityName, Q->EntityCode, Q->EntityType, Q->Constant?"true" : "false",
  		Q->LineNumber );
  	i++;

@@ -1220,7 +1220,7 @@ yyreduce:
 #line 75 "bison_code.y"
                                                 {
 		if(strcmp((yyvsp[-4].string),(yyvsp[-1].string))!=0){
-			printf("semantic error: incompatible type , in line %d\n",line_counter);
+			printf("semantic error: incompatible type for %s, expected (%s) affected (%s) line %d\n",(yyvsp[-3].string),(yyvsp[-4].string),(yyvsp[-1].string),line_counter);
 		}
 		isConst((yyvsp[-3].string));
 	}
@@ -1259,7 +1259,7 @@ yyreduce:
                                         {
 		
 		if(strcmp((yyvsp[-4].string),(yyvsp[-1].string))!=0){
-			printf("semantic error: incompatible type , in line %d\n",line_counter);
+			printf("semantic error: incompatible type for %s, expected (%s) affected (%s) line %d\n",(yyvsp[-3].string),(yyvsp[-4].string),(yyvsp[-1].string),line_counter);
 		}
 	}
 #line 1266 "bison_code.tab.c"

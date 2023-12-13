@@ -74,7 +74,7 @@ Declarations_List:
 ConstDeclaration :
 	KW_Const  Type G_IDF SC_ASSIGN Const ';'{
 		if(strcmp($2,$5)!=0){
-			printf("semantic error: incompatible type , in line %d\n",line_counter);
+			printf("semantic error: incompatible type for %s, expected (%s) affected (%s) line %d\n",$3,$2,$5,line_counter);
 		}
 		isConst($3);
 	}
@@ -99,7 +99,7 @@ VarInit:
 	Type  G_IDF SC_ASSIGN Const ';' {
 		
 		if(strcmp($1,$4)!=0){
-			printf("semantic error: incompatible type , in line %d\n",line_counter);
+			printf("semantic error: incompatible type for %s, expected (%s) affected (%s) line %d\n",$2,$1,$4,line_counter);
 		}
 	}				
 ;

@@ -48,7 +48,7 @@ comment		"{"[^{}]*"}"
 "--"			return(SC_DECR);
 
 {comment}		{line_counter = line_counter + count_nl(yytext, yyleng);}
-\n			line_counter ++;
+\n				line_counter ++;
 [ \t]			{	}
 .           		printf("erreur a la ligne %d\n", line_counter);
 %%
