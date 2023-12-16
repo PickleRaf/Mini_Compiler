@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "../inc/sym_tab.h"
 
+int line;
 int stnCounter = 0;
 char* Current_type=NULL;
 char* Current_const_valtype;
@@ -258,6 +259,29 @@ void deleteEntity(int lineNumber){
 			
 			}	
 			stnCounter = stnCounter -1;
+}
+
+bool isIsConst(int line )
+{
+	STN* Q = List_head;
+	bool found = false;
+
+	while (Q!=NULL && !found )  
+	{
+		if (Q->LineNumber == line)
+		{
+			if (Q->Constant)
+			{
+				found = true;
+			}
+			
+		}
+		
+		Q = Q->NextNode;
+	}
+	
+
+	return found;
 }
 
 void print_STN ()

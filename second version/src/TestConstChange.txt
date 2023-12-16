@@ -1,0 +1,22 @@
+Const int j := 16;
+
+Const int x := 10;
+Const float y := 1.2;
+
+int t1 := 5;
+
+BEGIN
+
+x := j * 20 ;
+
+y := x  * t1;
+
+t1 := (x * y ) % j ; 
+
+x := t1 * y - j ;
+
+y := t1 ;
+
+x := -56 ;
+
+END

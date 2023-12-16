@@ -7,6 +7,7 @@
 #include "../inc/sym_tab.h" 
 
 extern int line_counter;
+extern int line ;
 extern char* Current_type;
 extern char* Current_const_valtype;
 void yyerror();
@@ -175,7 +176,14 @@ Instructions_List:
 
 Assignment:
    	 IDF SC_ASSIGN exprA ';' {
-					
+					if(search($1)!= -1){
+						line = search($1);
+
+						if(isIsConst(line)){
+							printf("semantic error : changing value of const (%s), line %d\n",$1,line_counter);
+						}
+
+					}
 	}
    	 	
    	 
@@ -186,7 +194,6 @@ stmt:
 	|If_instruction stmt
 	|IfElse_instruction stmt
 	|While_insruction stmt
-	|exprA stmt 
 	|Assignment stmt
 ;
 

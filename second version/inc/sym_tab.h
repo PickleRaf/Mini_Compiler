@@ -16,6 +16,8 @@ typedef struct Symbole_Table_Node{
     struct Symbole_Table_Node* NextNode; 
 }STN;
 
+bool isIsConst(int line );
+
 void varNotDec();
 
 void deleteEntity();
