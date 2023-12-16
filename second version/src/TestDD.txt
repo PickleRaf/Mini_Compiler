@@ -12,4 +12,14 @@ int t :=5;
 
 BEGIN 
 
+
+{
+    TestDD.txt Analysis: 
+semantic error: double declaration of x, in line 4
+semantic error: double declaration of y, in line 7
+semantic error: double declaration of z, in line 8
+semantic error: double declaration of t, in line 11
+}
+
+
 END 

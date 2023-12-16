@@ -11,4 +11,16 @@ boolean y2 := 3.6;
 
 BEGIN
 
+
+{
+    TestDecINC.txt Analysis: 
+semantic error: incompatible type for x1, expected (int) affected (float) line 3
+semantic error: incompatible type for x2, expected (float) affected (boolean) line 4
+semantic error: incompatible type for x, expected (boolean) affected (int) line 5
+semantic error: incompatible type for y, expected (int) affected (float) line 8
+semantic error: incompatible type for y1, expected (float) affected (boolean) line 9
+semantic error: incompatible type for y2, expected (boolean) affected (float) line 10
+}
+
+
 END

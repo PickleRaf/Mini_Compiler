@@ -18,4 +18,17 @@ y := y % nd3;
 
 nd4 := nd5 + nd6 * nd7;
 
+
+{
+TestNotDec.txt Analysis: 
+semantic error : variable (nd1) NOT Declared !
+semantic error : variable (nd2) NOT Declared !
+semantic error : variable (nd3) NOT Declared !
+semantic error : variable (nd4) NOT Declared !
+semantic error : variable (nd5) NOT Declared !
+semantic error : variable (nd6) NOT Declared !
+semantic error : variable (nd7) NOT Declared 
+}
+
+
 END

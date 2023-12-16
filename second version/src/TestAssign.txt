@@ -18,4 +18,20 @@ y := x / x;
 
 y := j % 2;
 
+{
+    
+TestAssign.txt Analysis: 
+This code is correct
+
+/*******************Symboles Table *************************/
+________________________________________________________________________
+|  EntityName | EntityCode  | EntityType | Constant | LineNumber(stab) |
+________________________________________________________________________
+|           j |         idf |        int |      false | 1 
+|           x |         idf |        int |      false | 2 
+|          y  |         idf |        int |      false | 3 
+
+}
+
+
 END

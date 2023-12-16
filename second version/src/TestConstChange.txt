@@ -19,4 +19,14 @@ y := t1 ;
 
 x := -56 ;
 
+{ 
+    TestConstChange.txt Analysis: 
+semantic error : changing value of const (x), line 10
+semantic error : changing value of const (y), line 12
+semantic error : changing value of const (x), line 16
+semantic error : changing value of const (y), line 18
+semantic error : changing value of const (x), line 20 
+}
+
+
 END
