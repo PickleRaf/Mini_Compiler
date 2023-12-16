@@ -16,6 +16,9 @@ typedef struct Symbole_Table_Node{
     struct Symbole_Table_Node* NextNode; 
 }STN;
 
+void varNotDec();
+
+void deleteEntity();
 
 void Sym_Tab_Destroy();
 

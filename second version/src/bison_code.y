@@ -28,8 +28,8 @@ int yylex();
 
 %token	INT FLOAT BOOL IDF 
 %token	SC_ASSIGN SC_EQUALS SC_DIFF SC_LOE SC_GOE SC_AND SC_OR SC_INCR SC_DECR
-%token	KW_int KW_float KW_boolean KW_While KW_If KW_Else KW_BEGIN KW_END KW_Return KW_Const KW_Void KW_Pc KW_Fc KW_Function
-
+%token	KW_int KW_float KW_boolean KW_While KW_If KW_Else KW_BEGIN KW_END KW_Void KW_Function
+%token  KW_false KW_true KW_Return KW_Const
 
 %type <string> 		IDF
 %type <integer>		INT
@@ -40,6 +40,7 @@ int yylex();
 %type <string>		G_IDF
 %type <string>		Const
 %type <string> 		Type
+
 
 %left ','
 %left SC_OR
@@ -58,6 +59,7 @@ Programme:
 	
 	Declarations_List Instructions_List{
 		
+		varNotDec();
 		printf("This code is correct\n");
 		YYACCEPT;
 	}
@@ -73,10 +75,10 @@ Declarations_List:
 
 ConstDeclaration :
 	KW_Const  Type G_IDF SC_ASSIGN Const ';'{
+		isConst($3);
 		if(strcmp($2,$5)!=0){
 			printf("semantic error: incompatible type for %s, expected (%s) affected (%s) line %d\n",$3,$2,$5,line_counter);
 		}
-		isConst($3);
 	}
 ;
 
@@ -89,7 +91,11 @@ Const:
 		$$="float";
 
 	}
-	|BOOL{	
+	|KW_false{	
+		$$="boolean";
+
+	}
+	|KW_true{	
 		$$="boolean";
 
 	}
@@ -162,14 +168,16 @@ Type:
 ;
 
 Instructions_List:
-	%empty
-	|KW_BEGIN stmt KW_END  
+	
+	KW_BEGIN stmt KW_END  
 ;
 
 
 Assignment:
-   	 G_IDF SC_ASSIGN exprA ';'{
-   	 	}
+   	 IDF SC_ASSIGN exprA ';' {
+					
+	}
+   	 	
    	 
 ;
    
@@ -185,16 +193,12 @@ stmt:
 exprA:
 	INT
 	|FLOAT
-	|IDF {
-		if(search($1)==-1){
-			printf("idf NOT DECLARED ! 206 line:%d\n ",line_counter);
-		}
-	}
+	|IDF 
 	|'(' exprA ')'
 	|exprA '+' exprA
 	|exprA '-' exprA	%prec '+'
 	|exprA '*' exprA
-	|exprA '/' exprA
+	|exprA '/' exprA	//{if(strcmp($3,"0")==0){printf("semantic error : division by 0, Line %d",line_counter);}}	
 	|exprA '%' exprA
 	
 ;
@@ -217,21 +221,21 @@ exprL:
 ;
 
 Condition :
-	"true"
-	|"false"
+	KW_true
+	|KW_false
 	|exprL
 ;
 
 If_instruction :
-	KW_If '(' Condition')' '{' stmt  '}'
+	KW_If '(' Condition')' '[' stmt  ']'
 ;
 
 IfElse_instruction :
-	If_instruction KW_Else '{' stmt '}'
+	If_instruction KW_Else '[' stmt ']'
 ;
 
 While_insruction :
-		KW_While '('Condition')' '{' stmt '}'
+		KW_While '('Condition')' '[' stmt ']'
 ;
 
 %%

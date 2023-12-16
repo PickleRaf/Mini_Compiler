@@ -1,0 +1,45 @@
+Const int j := 8;
+
+int x,y := 1;
+
+BEGIN
+
+{with Arithmetic/Relational exp }
+
+While ( x < y ) [
+
+    y := y * 2;
+
+    While ( x > 50) [
+
+        x := x - 10;
+
+    ]
+
+    If(y >= j) [
+        
+        y := y - 5 ;
+    ]
+    else [
+        {do nothing }
+    ]
+]
+
+{ with Logical exp }
+
+While ( x <> y || x < j   )[
+
+    If ( y > j && x == j)[
+        
+        While ( true ) [
+
+            If (false ) [
+                { do nothing }
+            ]
+        ]
+    ]
+
+
+]
+
+END

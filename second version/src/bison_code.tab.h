@@ -75,12 +75,12 @@ extern int yydebug;
     KW_Else = 276,                 /* KW_Else  */
     KW_BEGIN = 277,                /* KW_BEGIN  */
     KW_END = 278,                  /* KW_END  */
-    KW_Return = 279,               /* KW_Return  */
-    KW_Const = 280,                /* KW_Const  */
-    KW_Void = 281,                 /* KW_Void  */
-    KW_Pc = 282,                   /* KW_Pc  */
-    KW_Fc = 283,                   /* KW_Fc  */
-    KW_Function = 284              /* KW_Function  */
+    KW_Void = 279,                 /* KW_Void  */
+    KW_Function = 280,             /* KW_Function  */
+    KW_false = 281,                /* KW_false  */
+    KW_true = 282,                 /* KW_true  */
+    KW_Return = 283,               /* KW_Return  */
+    KW_Const = 284                 /* KW_Const  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

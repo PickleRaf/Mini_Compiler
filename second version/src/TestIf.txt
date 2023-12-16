@@ -1,0 +1,60 @@
+Const int j := 7;
+
+int x ;
+float y := 50.69;
+
+BEGIN
+
+{ with arithmetic/relational expressions }
+
+If ( true ) [
+    x := j * 5;
+    
+]
+
+If ( ( x + 2 ) == (j + 2) )[
+
+    x:= x + 2;
+
+]
+
+If ( x <> 1  )[
+
+    x := x - 4;
+]
+
+If ( x >= -5 ) [
+
+    If ( x <= 0)[
+        x := 2 * x;
+    ]
+    else[
+        x := x % 2;
+    ]
+]
+
+{ With Logical expressions  }
+
+If ( x == y && y >= j )[
+
+    x := x + 10;
+
+    If ( ! x <= 100  ) [
+
+        y := y * 2 ;
+    ]
+
+    If ( ! x <> y || (x * y) <= (y * j)  ) [
+
+        x:= j/j + y * 2;
+
+    ]
+    else[
+
+        y:= j % x ;
+    ]
+]
+
+
+
+END

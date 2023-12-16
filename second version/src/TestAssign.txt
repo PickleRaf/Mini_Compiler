@@ -1,0 +1,21 @@
+Const int j := 6;
+
+int x,y ;
+
+BEGIN
+
+x := ((j * 5) + (j + 4) - j % 3 )/1; 
+
+x := j+j*5 - 2/2+j%2; 
+
+y := x + j;
+
+y := j * x;
+
+y := x - j;
+
+y := x / x;
+
+y := j % 2;
+
+END

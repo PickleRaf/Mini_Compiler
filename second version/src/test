@@ -1,11 +1,11 @@
-
+Const int j := 10;
 
 BEGIN
 
-While( true ){
+While( x < y){
 
-    If( 10.2>=10.2){
-        z:=10;
+    If( 10.2 >= 10.2){
+        z := 10;
     }
 
     If(102==102){

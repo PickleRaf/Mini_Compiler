@@ -1,0 +1,21 @@
+Const int j := 9;
+
+int x,y;
+float z := 2.5;
+float t := -6.1;
+
+BEGIN 
+
+x := j * 10;
+
+nd1 := x + y;
+
+z := j * z + 50;
+
+y := nd2 * 2 ;
+
+y := y % nd3;
+
+nd4 := nd5 + nd6 * nd7;
+
+END

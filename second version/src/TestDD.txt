@@ -1,0 +1,15 @@
+Const int j := 4;
+
+Const float x := 2.1;
+Const boolean x := true;
+
+int y;
+int y;
+float z,z;
+
+boolean t := false;
+int t :=5;
+
+BEGIN 
+
+END 

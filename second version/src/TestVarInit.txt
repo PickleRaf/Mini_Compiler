@@ -1,0 +1,8 @@
+Const int j:= 2;
+int x := 10;
+float y := -50.968;
+boolean z,z1 := false ;
+
+BEGIN
+
+END

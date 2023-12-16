@@ -28,7 +28,9 @@ int main(int argc, char** argv){
     	printf("%s Analysis: \n", argv[i]);
 
 	yylex();	 
-    	yyparse();
+    yyparse();
+
+
    	print_STN();
    	Sym_Tab_Destroy();
    	 

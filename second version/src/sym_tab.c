@@ -138,12 +138,134 @@ int doubleDeclaration(char* idf)
 
 }
 
+void varNotDec(){
+
+	STN* Q = List_head;
+	
+	while(Q != NULL )
+	{
+		if ( Q->EntityType == NULL ){
+
+			printf("semantic error : variable (%s) NOT Declared !\n", Q->EntityName);
+			deleteEntity(Q->LineNumber);
+
+		}
+		
+		Q = Q->NextNode;
+		
+	}
+
+}
+
+void deleteEntity(int lineNumber){
+
+	STN* Q1 = List_head;
+	STN* Q2 = List_head ->NextNode ;
+	STN* Q3 = NULL ;
+	STN* Q4 = NULL ;
+	bool deleted = false ;
+		
+		if (lineNumber == 1)
+		{
+			List_head = Q2;
+			
+			free(Q1->EntityName);
+      		Q1-> EntityName = NULL;
+      
+      		free(Q1->EntityCode);
+       		Q1-> EntityCode = NULL;
+        
+      		free(Q1->EntityType);
+        	Q1->EntityType = NULL;
+
+			free(Q1);
+			Q1 = NULL;
+		}
+		else if (List_tail->LineNumber == lineNumber)
+			{
+				while (deleted == false)
+				{
+					if (Q1->LineNumber == (lineNumber-1) )
+					{
+						List_tail = Q1;
+
+						Q1 = Q1->NextNode;
+						List_tail->NextNode = NULL;
+
+						free(Q1->EntityName);
+      					Q1-> EntityName = NULL;
+      
+      					free(Q1->EntityCode);
+       					Q1-> EntityCode = NULL;
+        
+      					free(Q1->EntityType);
+        				Q1->EntityType = NULL;
+
+
+						free(Q1);
+						Q1 = NULL;
+						deleted = true;
+					}	
+					if (!deleted)
+					{
+						Q1= Q1->NextNode;				
+						
+					}
+					
+				}			
+			}
+			else{
+		
+				while(Q1 != NULL && deleted== false)
+				{
+					if ( Q1->LineNumber == lineNumber){
+				
+						free(Q1->EntityName);
+  		 				Q1-> EntityName = NULL;
+  
+  		  				free(Q1->EntityCode);
+   		 				Q1-> EntityCode = NULL;
+        
+  		  				free(Q1->EntityType);
+    					Q1->EntityType = NULL;
+    
+    					Q4 = Q1 ;
+						Q1 = Q2 ;
+    					Q3->NextNode = Q2;
+    		
+						free(Q4);
+						Q4 = NULL;
+						deleted = true;
+					}
+		
+					Q3 = Q1;
+					Q1 = Q2;
+					Q2 = Q2->NextNode;
+				}
+
+				Q1 = List_head;
+
+				while (Q1 != NULL)
+				{
+					if (Q1->LineNumber > lineNumber)
+					{
+						Q1->LineNumber = Q1->LineNumber -1; 
+					}
+					
+					Q1 = Q1->NextNode;
+				}
+				
+			
+			}	
+			stnCounter = stnCounter -1;
+}
+
 void print_STN ()
 {
 printf("\n/*******************Symboles Table *************************/\n");
-printf("____________________________________________________________________________\n");
-printf("\t|  EntityName | EntityCode  | EntityType | Constant | LineNumber(symtab) |\n");
-printf("____________________________________________________________________________\n");
+printf("________________________________________________________________________\n");
+printf("\t|  EntityName | EntityCode  | EntityType | Constant | LineNumber(stab) |\n");
+printf("________________________________________________________________________\n");
 
 int i=0;
 STN* Q = List_head;

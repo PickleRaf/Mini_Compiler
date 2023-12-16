@@ -1,0 +1,14 @@
+Const int j := 5;
+
+Const int x1 := 7.4;
+Const float x2 := false;
+Const boolean x := 10;
+
+
+int y := 1.3;
+float y1 := true;
+boolean y2 := 3.6;
+
+BEGIN
+
+END
